@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 
-// Login to user account
+// Login to database
 object Logger {
 	val scene by lazy {	scene()	}
 
@@ -25,33 +25,36 @@ object Logger {
 		text.font = GUIFont.heavy
 		gridPane.add(text, 0, 0)
 
-		val email = TextField()
-		email.promptText = "Email"
-		email.font = GUIFont.regular
+		val username = TextField()
+		username.promptText = "Username"
+		username.font = GUIFont.regular
 
 		val password = PasswordField()
 		password.promptText = "Password"
 		password.font = GUIFont.regular
 
 		val vbox = VBox(10.0)
-		vbox.children.addAll(email, password)
+		vbox.children.addAll(username, password)
 		gridPane.add(vbox, 0, 1)
 
 		val signIn = Button("Sign in")
 		signIn.font = GUIFont.medium
 		signIn.setOnAction {
 			_ ->
-			Welcome.user = Welcome.User(email.text, password.text)
+			Welcome.user = Welcome.User(username.text, password.text)
 			window.scene = Welcome.scene
 		}
 
-		val signUp = Button("Sign up")
-		signUp.font = GUIFont.medium
-		signUp.setOnAction { _ -> window.scene = Registrar.scene }
+		// val signUp = Button("Sign up")
+		// signUp.font = GUIFont.medium
+		// signUp.setOnAction { _ -> window.scene = Registrar.scene }
 
-		val hbox = HBox(10.0)
-		hbox.children.addAll(signIn, signUp)
-		gridPane.add(hbox, 0, 2)
+		// val hbox = HBox(10.0)
+		// hbox.children.add(signIn)
+		// hbox.children.add(signUp)
+		// gridPane.add(hbox, 0, 2)
+
+		gridPane.add(signIn, 0, 2)
 
 		return Scene(gridPane, 250.0, 150.0)
 	}

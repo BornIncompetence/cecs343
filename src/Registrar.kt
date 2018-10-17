@@ -29,6 +29,10 @@ object Registrar {
 		email.promptText = "Email"
 		email.font = GUIFont.regular
 
+		val username = TextField()
+		username.promptText = "Username"
+		username.font = GUIFont.regular
+
 		val password = PasswordField()
 		password.promptText = "Password"
 		password.font = GUIFont.regular
@@ -38,34 +42,34 @@ object Registrar {
 		retypePassword.font = GUIFont.regular
 
 		val vbox = VBox(10.0)
-		vbox.children.addAll(email, password, retypePassword)
+		vbox.children.addAll(email, username, password, retypePassword)
 		gridPane.add(vbox, 0, 1)
 
 		val register = Button("Register")
 		register.font = GUIFont.medium
 		register.setOnAction {
 			_ ->
-			// Check if email address already exists
+			// Check if email address or username already exists
 			//     - Connect to database
-			//     - Check database for instances of email-address
+			//     - Check database for instances of email-address or username
 			//         - If found
-			//         - Display warning that email address already exists in the system
+			//         - Display warning if either already exists in the system
 			//     - Check if password matches retype password
 			//         - If matches
 			//         - Display warning that passwords don't match
 			// Else execute a query that adds email address and password to database
 			println("An email has been sent confirming your account.")
-			window.scene = Logger.scene
+			Welcome.stage.close()
 		}
 
 		val back = Button("Go back")
 		back.font = GUIFont.medium
-		back.setOnAction { _ -> window.scene = Logger.scene }
+		back.setOnAction { _ -> Welcome.stage.close() }
 
 		val hbox = HBox(10.0)
 		hbox.children.addAll(register, back)
 		gridPane.add(hbox, 0, 2)
 
-		return Scene(gridPane, 250.0, 200.0)
+		return Scene(gridPane, 250.0, 225.0)
 	}
 }

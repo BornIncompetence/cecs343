@@ -12,18 +12,26 @@ object GUIFont {
 	val medium         = Font.loadFont("file:resources/fonts/SF-Pro-Text-Medium.otf", 12.0)!!
 	val mediumItalic   = Font.loadFont("file:resources/fonts/SF-Pro-Text-MediumItalic.otf", 20.0)!!
 	val regular        = Font.loadFont("file:resources/fonts/SF-Pro-Text-Regular.otf", 12.0)!!
-	val regularItalic  = Font.loadFont("file:resources/fonts/SF-Pro-Text-RegularItalic.otf", 20.0)!!
+	val regularItalic  = Font.loadFont("file:resources/fonts/SF-Pro-Text-RegularItalic.otf", 12.0)!!
 	val semibold       = Font.loadFont("file:resources/fonts/SF-Pro-Text-Semibold.otf", 20.0)!!
 	val semibolditalic = Font.loadFont("file:resources/fonts/SF-Pro-Text-SemiboldItalic.otf", 20.0)!!
 }
 
+// This is the main window used by all scene objects to initialize one-another
 lateinit var window: Stage
 
+// By default, the first screen users will see is the login, this is to make
+// sure that the correct user is logged into the MYSQL database
+// e.g. <Username>, <Password> = "root", "password"
 class GUI : Application() {
 
+	// We will be using the user's locally installed database for the purposes
+	// of this assignment. The user should already have a MYSQL database
+	// created with the name "scheduler"
 	val url = "jdbc:mysql://localhost:3306/"
 	val database = "scheduler"
 
+	// Entry-point for GUI app.
 	override fun start(primaryStage: Stage) {
 		window = primaryStage
 
@@ -32,6 +40,7 @@ class GUI : Application() {
 		window.show()
 	}
 
+	// Kotlin needs this for some reason
 	companion object {
 		@JvmStatic
 		fun main(args: Array<String>) {
