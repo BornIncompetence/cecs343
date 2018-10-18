@@ -12,7 +12,7 @@ import javafx.stage.Stage
 
 // Main menu
 object Welcome {
-	data class User(val email: String, val password: String) {}
+	data class User(val email: String?, val username: String, val password: String) {}
 	lateinit var user: User
 	val stage = Stage()
 
@@ -45,7 +45,6 @@ object Welcome {
 		val createAccount = MenuItem("Create account")
 		createAccount.setOnAction {
 			_ ->
-			// TODO: Possibly re-purpose Registrar
 			changeStage(StageType.CREATE_ACCOUNT)
 			stage.showAndWait()
 		}
@@ -60,6 +59,7 @@ object Welcome {
 		val changePassword = MenuItem("Change password")
 		changePassword.setOnAction {
 			_ ->
+			// Change password associated with username
 			changeStage(StageType.CHANGE_PASSWORD)
 			stage.showAndWait()
 		}
@@ -67,6 +67,7 @@ object Welcome {
 		val modifyAccount = MenuItem("Modify account")
 		modifyAccount.setOnAction {
 			_ ->
+			// What kind of settings would we change?
 			changeStage(StageType.MODIFY_ACCOUNT)
 			stage.showAndWait()
 		}
@@ -84,6 +85,7 @@ object Welcome {
 		menuBar.menus.addAll(menuAccount, menuAppointment, menuSettings, menuHelp)
 		vbox.children.add(menuBar)
 
+		// TODO: Create a calendar view in place of this, each entry in the calendar has a username
 		val welcomeText = Text("Logged in as " + user.email)
 		welcomeText.font = GUIFont.regularItalic
 		gridPane.add(welcomeText, 0, 1)
@@ -97,7 +99,7 @@ object Welcome {
 		stage.scene = when (stageType) {
 			Welcome.StageType.CREATE_ACCOUNT -> Registrar.scene
 			Welcome.StageType.CHANGE_USERNAME -> TODO()
-			Welcome.StageType.CHANGE_PASSWORD -> TODO()
+			Welcome.StageType.CHANGE_PASSWORD -> PasswordChanger.scene
 			Welcome.StageType.MODIFY_ACCOUNT -> TODO()
 			Welcome.StageType.SET_CALENDAR_TYPE -> TODO()
 		}

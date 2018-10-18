@@ -41,7 +41,7 @@ object Logger {
 		signIn.font = GUIFont.medium
 		signIn.setOnAction {
 			_ ->
-			Welcome.user = Welcome.User(username.text, password.text)
+			Welcome.user = Welcome.User(null, username.text, password.text)
 			window.scene = Welcome.scene
 		}
 
