@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/Registrar.kt" line="110" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="5c40802a-324d-4fa3-9bd9-c75abe2423b6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/PasswordChanger.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Squeal.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/create.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cecs343/Logger$scene$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cecs343/Logger$scene$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cecs343/Logger.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cecs343/META-INF/cecs343.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cecs343/Logger$scene$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cecs343/Logger$scene$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cecs343/Logger$scene$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cecs343/Logger$scene$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cecs343/Logger.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cecs343/Logger.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cecs343/Registrar$scene$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cecs343/Registrar$scene$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/cecs343/Registrar$scene$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cecs343/Registrar$scene$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cecs343/Registrar$scene$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cecs343/Registrar$scene$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cecs343/Registrar.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cecs343/Registrar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cecs343/SourceKt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cecs343/SourceKt.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cecs343/Welcome$User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cecs343/Welcome$User.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/cecs343/Welcome.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cecs343/Welcome.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Logger.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Logger.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Registrar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Registrar.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Source.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Source.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Welcome.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Welcome.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -32,59 +42,78 @@
     <option name="HIDDEN_KINDS">
       <set />
     </option>
-    <expand />
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+    </expand>
     <select />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="1922807076">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="8" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.16" value="2" />
-          <entry key="project.open.time.18" value="1" />
+          <entry key="project.open.time.18" value="2" />
           <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.26" value="1" />
           <entry key="project.open.time.4" value="1" />
-          <entry key="project.opened" value="8" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="class" value="2" />
           <entry key="iml" value="1" />
-          <entry key="java" value="28" />
-          <entry key="kt" value="10" />
+          <entry key="java" value="43" />
+          <entry key="kt" value="16" />
+          <entry key="sql" value="7" />
+          <entry key="xml" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="CLASS" value="2" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="28" />
-          <entry key="Kotlin" value="10" />
+          <entry key="JAVA" value="43" />
+          <entry key="Kotlin" value="16" />
+          <entry key="SQL" value="6" />
+          <entry key="Scratch" value="1" />
+          <entry key="XML" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="kt" value="14273" />
-          <entry key="txt" value="31" />
+          <entry key="kt" value="16177" />
+          <entry key="sql" value="744" />
+          <entry key="txt" value="54" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Kotlin" value="14273" />
-          <entry key="PLAIN_TEXT" value="31" />
+          <entry key="Kotlin" value="16177" />
+          <entry key="PLAIN_TEXT" value="54" />
+          <entry key="SQL" value="744" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Source.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="20" column="20" lean-forward="true" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
+            <state relative-caret-position="380">
+              <caret line="58" column="31" lean-forward="true" selection-start-line="58" selection-start-column="31" selection-end-line="58" selection-end-column="31" />
               <folding>
                 <element signature="n#!!block;n#GUIFont#0" />
               </folding>
@@ -95,19 +124,37 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Registrar.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="607">
-              <caret line="110" column="48" lean-forward="true" selection-start-line="110" selection-start-column="48" selection-end-line="110" selection-end-column="48" />
+            <state relative-caret-position="1554">
+              <caret line="110" column="48" selection-start-line="110" selection-start-column="48" selection-end-line="110" selection-end-column="48" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Logger.kt">
+        <entry file="file://$PROJECT_DIR$/src/Squeal.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="474">
-              <caret line="43" column="43" selection-start-line="43" selection-start-column="43" selection-end-line="43" selection-end-column="43" />
+            <state relative-caret-position="95">
+              <caret line="5" column="12" lean-forward="true" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/create.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="399">
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PasswordChanger.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="546">
+              <caret line="52" column="91" lean-forward="true" selection-start-line="52" selection-start-column="91" selection-end-line="52" selection-end-column="91" />
               <folding>
-                <element signature="e#0#357#0" expanded="true" />
+                <element signature="e#0#297#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -116,29 +163,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Welcome.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/PasswordChanger.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
-              <folding>
-                <element signature="e#0#331#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Credentializer.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="551">
-              <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+            <state relative-caret-position="546">
+              <caret line="100" column="55" lean-forward="true" selection-start-line="100" selection-start-column="55" selection-end-line="100" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -149,8 +175,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="TornadoFX Code View" />
-        <option value="Kotlin File" />
         <option value="Kotlin Object" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -162,11 +188,14 @@
       <list>
         <option value="$PROJECT_DIR$/src/unsigned.kt" />
         <option value="$PROJECT_DIR$/src/Credentializer.kt" />
-        <option value="$PROJECT_DIR$/src/Source.kt" />
         <option value="$PROJECT_DIR$/src/Registrar.kt" />
-        <option value="$PROJECT_DIR$/src/Logger.kt" />
-        <option value="$PROJECT_DIR$/src/Welcome.kt" />
         <option value="$PROJECT_DIR$/src/PasswordChanger.kt" />
+        <option value="$PROJECT_DIR$/src/sequel.sql" />
+        <option value="$PROJECT_DIR$/src/Logger.kt" />
+        <option value="$PROJECT_DIR$/src/create.sql" />
+        <option value="$PROJECT_DIR$/src/Welcome.kt" />
+        <option value="$PROJECT_DIR$/src/Source.kt" />
+        <option value="$PROJECT_DIR$/src/Squeal.kt" />
       </list>
     </option>
   </component>
@@ -188,6 +217,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -198,13 +228,17 @@
             <path>
               <item name="cecs343" type="b2602c69:ProjectViewProjectNode" />
               <item name="cecs343" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cecs343" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cecs343" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -212,24 +246,24 @@
     <property name="SearchEverywhereHistoryKey" value="TornadoFX&#9;ACTION&#9;createNewView&#10;plugins&#9;ACTION&#9;WelcomeScreen.Plugins" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539887240306" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539900448224" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/mysql-connector-java-8.0.11.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Christopher\IdeaProjects\cecs343" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Christopher\IdeaProjects\cecs343\resources\fonts" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Christopher\IdeaProjects\cecs343" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -244,7 +278,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Kotlin.SourceKt">
     <configuration name="GUI" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
       <module name="cecs343" />
       <option name="VM_PARAMETERS" />
@@ -258,8 +292,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SourceKt" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
+      <module name="cecs343" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="SourceKt" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Kotlin.GUI" />
+      <item itemvalue="Kotlin.SourceKt" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin.SourceKt" />
         <item itemvalue="Kotlin.GUI" />
       </list>
     </recent_temporary>
@@ -281,7 +333,8 @@
       <workItem from="1539714556140" duration="96000" />
       <workItem from="1539724086670" duration="3246000" />
       <workItem from="1539742853351" duration="12417000" />
-      <workItem from="1539797407959" duration="18188000" />
+      <workItem from="1539797407959" duration="18302000" />
+      <workItem from="1539889699139" duration="9206000" />
     </task>
     <task id="LOCAL-00001" summary="The rest of the files I forgot">
       <created>1539816018327</created>
@@ -290,17 +343,23 @@
       <option name="project" value="LOCAL" />
       <updated>1539816018327</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added PasswordChanger">
+      <created>1539887328043</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1539887328043</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49749000" />
+    <option name="totallyTimeSpent" value="59069000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12846482" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12953092" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -308,17 +367,17 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33044422" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.28602383" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32932165" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32719395" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.285558" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.329718" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32936078" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.32827735" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32822758" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -326,7 +385,7 @@
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
-      <window_info anchor="right" id="Database" order="7" weight="0.25929978" />
+      <window_info anchor="right" id="Database" order="7" weight="0.20095949" />
       <window_info anchor="right" id="Maven Projects" order="8" />
     </layout>
     <layout-to-restore>
@@ -367,23 +426,31 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="The rest of the files I forgot" />
-    <option name="LAST_COMMIT_MESSAGE" value="The rest of the files I forgot" />
+    <MESSAGE value="Added PasswordChanger" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added PasswordChanger" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/Credentializer.kt</url>
-          <line>42</line>
-          <properties />
-          <option name="timeStamp" value="2" />
+        <line-breakpoint enabled="true" type="kotlin-field">
+          <url>file://$PROJECT_DIR$/src/Squeal.kt</url>
+          <line>30</line>
+          <properties myFieldName="change_username" myClassName="sql" />
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/Credentializer.kt</url>
-          <line>49</line>
-          <properties />
-          <option name="timeStamp" value="3" />
+        <line-breakpoint enabled="true" type="kotlin-field">
+          <url>file://$PROJECT_DIR$/src/Squeal.kt</url>
+          <line>23</line>
+          <properties myFieldName="change_password" myClassName="sql" />
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-field">
+          <url>file://$PROJECT_DIR$/src/Squeal.kt</url>
+          <line>17</line>
+          <properties myFieldName="change_user_password" myClassName="sql" />
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -482,9 +549,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="69" selection-start-line="69" selection-end-line="69" />
-          <folding>
-            <element signature="e#1733#1734#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -534,53 +598,203 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/dataSources.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sequel.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/d193183c-a3d6-42b7-ac6c-d462068ae607/console.sql">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/kotlinc.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/dataSources.local.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="10" lean-forward="true" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Credentializer.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Source.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="20" column="20" lean-forward="true" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
-          <folding>
-            <element signature="n#!!block;n#GUIFont#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Welcome.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Registrar.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="607">
-          <caret line="110" column="48" lean-forward="true" selection-start-line="110" selection-start-column="48" selection-end-line="110" selection-end-column="48" />
+        <state relative-caret-position="437">
+          <caret line="31" column="39" lean-forward="true" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Logger.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="43" column="43" selection-start-line="43" selection-start-column="43" selection-end-line="43" selection-end-column="43" />
+        <state relative-caret-position="475">
+          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
           <folding>
-            <element signature="e#0#357#0" expanded="true" />
+            <element signature="e#0#331#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_162/src.zip!/java/lang/Math.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="1335" selection-start-line="1335" selection-end-line="1335" />
+          <folding>
+            <element signature="e#52271#52272#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_162/src.zip!/java/util/Arrays.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="3180" selection-start-line="3180" selection-end-line="3180" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_162/src.zip!/java/lang/Enum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="102" selection-start-line="102" selection-end-line="102" />
+          <folding>
+            <element signature="e#3009#3010#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_162/src.zip!/java/lang/AbstractStringBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
+          <folding>
+            <element signature="e#1327#1328#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_162/src.zip!/java/lang/StringBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="89" selection-start-line="89" selection-end-line="89" />
+          <folding>
+            <element signature="e#2871#2872#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_162/src.zip!/java/util/Locale.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="1998" selection-start-line="1998" selection-end-line="1998" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_162/src.zip!/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_162/src.zip!/java/util/AbstractList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="76" selection-start-line="76" selection-end-line="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_162/src.zip!/java/util/AbstractCollection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_162/src.zip!/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="165" selection-start-line="165" selection-end-line="165" />
+          <folding>
+            <element signature="e#6351#6352#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_162/src.zip!/java/util/Formatter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="2454" selection-start-line="2454" selection-end-line="2454" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_162/src.zip!/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="2939" selection-start-line="2939" selection-end-line="2939" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/out/production/cecs343/GUIFont.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/out/production/cecs343/GUI.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PasswordChanger.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
+        <state relative-caret-position="546">
+          <caret line="52" column="91" lean-forward="true" selection-start-line="52" selection-start-column="91" selection-end-line="52" selection-end-column="91" />
           <folding>
-            <element signature="e#0#331#0" expanded="true" />
+            <element signature="e#0#297#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Registrar.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1554">
+          <caret line="110" column="48" selection-start-line="110" selection-start-column="48" selection-end-line="110" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Welcome.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="100" column="55" lean-forward="true" selection-start-line="100" selection-start-column="55" selection-end-line="100" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/create.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Squeal.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="12" lean-forward="true" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Source.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="58" column="31" lean-forward="true" selection-start-line="58" selection-start-column="31" selection-end-line="58" selection-end-column="31" />
+          <folding>
+            <element signature="n#!!block;n#GUIFont#0" />
           </folding>
         </state>
       </provider>

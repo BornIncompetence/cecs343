@@ -18,7 +18,7 @@ object Welcome {
 
 	// Specifies different types of stages to appear on top of main window
 	private enum class StageType {
-		CREATE_ACCOUNT, CHANGE_USERNAME, CHANGE_PASSWORD, MODIFY_ACCOUNT, SET_CALENDAR_TYPE
+		CREATE_ACCOUNT, CHANGE_USERNAME, CHANGE_PASSWORD, MODIFY_ACCOUNT, MAKE_APPOINTMENT, CANCEL_APPOINTMENT, CHANGE_APPOINTMENT, SET_CALENDAR_TYPE, SET_COLOR
 	}
 
 	val scene by lazy {	scene()	}
@@ -101,7 +101,11 @@ object Welcome {
 			Welcome.StageType.CHANGE_USERNAME -> TODO()
 			Welcome.StageType.CHANGE_PASSWORD -> PasswordChanger.scene
 			Welcome.StageType.MODIFY_ACCOUNT -> TODO()
-			Welcome.StageType.SET_CALENDAR_TYPE -> TODO()
+			Welcome.StageType.SET_CALENDAR_TYPE -> TODO() // http://www.java2s.com/Tutorials/JavaImage/Swing/Menu/Create_a_nested_menu_item_for_inner_menu_items_in_Java_Example.PNG
+			Welcome.StageType.MAKE_APPOINTMENT -> TODO() // NOT NEEDED YET
+			Welcome.StageType.CANCEL_APPOINTMENT -> TODO() // NOT NEEDED YET
+			Welcome.StageType.CHANGE_APPOINTMENT -> TODO() // NOT NEEDED YET
+			Welcome.StageType.SET_COLOR -> TODO() // NOT NEEDED YET
 		}
 	}
 }
