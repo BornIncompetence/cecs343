@@ -38,16 +38,9 @@ object ModifyData {
         register.font = GUIFont.medium
         register.setOnAction {
             _ ->
-            // Check if email address or username already exists
-            //     - Connect to database
-            //     - Check database for instances of email-address or username
-            //         - If found
-            //         - Display warning if either already exists in the system
-            //     - Check if password matches retype password
-            //         - If matches
-            //         - Display warning that passwords don't match
-            // Else execute a query that adds email address and password to database
-            println("An email has been sent confirming your new email .")
+
+
+            //TODO insert functionallity
             Welcome.stage.close()
         }
 
