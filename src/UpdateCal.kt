@@ -9,12 +9,16 @@ import javafx.scene.layout.GridPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.scene.control.MenuButton
+import javafx.scene.control.MenuItem
+
 // Create User Account
 object UpdateCal {
     val scene by lazy {	scene()	}
 
     private fun scene(): Scene {
 
+
+        print("aaa");
         val gridPane = GridPane()
         gridPane.alignment = Pos.CENTER
         gridPane.hgap = 10.0
@@ -25,7 +29,11 @@ object UpdateCal {
         text.font = GUIFont.heavy
         gridPane.add(text, 0, 0)
 
-        val menu = MenuButton("AAa" )
+        val menuItemMonth =   MenuItem("Month");
+        val menuItemWeek =   MenuItem("Week");
+        val menuItemDay =   MenuItem("Day");
+
+        val menu = MenuButton("Choose Option" ,null, menuItemDay,menuItemMonth,menuItemWeek )
         menu.font = GUIFont.regular
 
         val vbox = VBox(10.0)
@@ -36,15 +44,6 @@ object UpdateCal {
         register.font = GUIFont.medium
         register.setOnAction {
             _ ->
-            // Check if email address or username already exists
-            //     - Connect to database
-            //     - Check database for instances of email-address or username
-            //         - If found
-            //         - Display warning if either already exists in the system
-            //     - Check if password matches retype password
-            //         - If matches
-            //         - Display warning that passwords don't match
-            // Else execute a query that adds email address and password to database
 
             Welcome.stage.close()
         }
