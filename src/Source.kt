@@ -48,3 +48,16 @@ class GUI : Application() {
 		}
 	}
 }
+
+// TESTING QUERIES
+fun main(args: Array<String>) {
+	SQL.email = "abcdefg@hijk.lm"
+	SQL.old_username = "Christopher"
+	SQL.old_password = "Greer"
+	SQL.new_username = "Diego"
+	SQL.new_password = "Gonzales"
+	println(SQL.create_account)
+	//println(SQL.change_user_password)
+	//println(SQL.change_username)
+	//println(SQL.change_password)
+}
