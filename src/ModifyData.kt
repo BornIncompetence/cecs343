@@ -29,9 +29,12 @@ object ModifyData {
         email.promptText = "New User Email"
         email.font = GUIFont.regular
 
+        val phoneNumber = TextField()
+        phoneNumber.promptText = "Phone Number"
+        phoneNumber.font = GUIFont.regular
 
         val vbox = VBox(10.0)
-        vbox.children.addAll(email)
+        vbox.children.addAll(email, phoneNumber)
         gridPane.add(vbox, 0, 1)
 
         val register = Button("Update")

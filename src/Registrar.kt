@@ -1,26 +1,27 @@
 import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.Scene
-import javafx.scene.control.Button
-import javafx.scene.control.Label
-import javafx.scene.control.PasswordField
-import javafx.scene.control.TextField
-import javafx.scene.layout.GridPane
-import javafx.scene.layout.HBox
-import javafx.scene.layout.VBox
+import javafx.scene.control.*
 import javafx.stage.Modality
 import javafx.stage.Stage
+import java.sql.DriverManager
+import java.sql.SQLException
+import javafx.scene.layout.*
+import kotlin.system.exitProcess
+
 
 // Create User Account
 object Registrar {
-	val scene by lazy { scene() }
-	lateinit var status: RegistrationStatus
+	private var pendingUser = Account("", "", "", null)
 
 	val stage = Stage()
 
+	lateinit var status: RegistrationStatus
 	enum class RegistrationStatus {
-		SUCCESS, INVALID_EMAIL, USERNAME_TAKEN, PASSWORD_DIFF
+		SUCCESS, INVALID_EMAIL, USERNAME_TAKEN, PASSWORD_DIFF, CONNECTION_FAILED
 	}
+
+	val scene by lazy { scene() }
 
 	private fun scene(): Scene {
 
@@ -55,16 +56,19 @@ object Registrar {
 		val register = Button("Register")
 		register.font = GUIFont.medium
 		register.setOnAction { _ ->
-			// Check if email address or username already exists
-			//     - Connect to database
-			//     - Check database for instances of email-address or username
-			//         - If found
-			//         - Display warning if either already exists in the system
-			//     - Check if password matches retype password
-			//         - If matches
-			//         - Display warning that passwords don't match
-			// Else execute a query that adds email address and password to database
-			status = RegistrationStatus.SUCCESS
+
+			if (password.text != retypePassword.text) {
+				status = RegistrationStatus.PASSWORD_DIFF
+			} else {
+				pendingUser.email = email.text
+				pendingUser.username = username.text
+				pendingUser.password = password.text
+
+				registerUser()
+			}
+
+			// Display status message. If Registration succeeded, exit.
+			// TODO: Switch account in session to newly created one
 			stage.scene = CreationMessage.scene
 			stage.showAndWait()
 			if (status == RegistrationStatus.SUCCESS) {
@@ -100,15 +104,61 @@ object Registrar {
 				RegistrationStatus.INVALID_EMAIL -> Label("This is an invalid email address")
 				RegistrationStatus.USERNAME_TAKEN -> Label("This username has already been taken")
 				RegistrationStatus.PASSWORD_DIFF -> Label("The passwords don't match")
+				RegistrationStatus.CONNECTION_FAILED -> Label("A connection could not be established to database")
 			}
-			gridPane.add(message, 0, 0)
+			val leftPane = StackPane(message)
+			leftPane.alignment = Pos.CENTER_LEFT
 
 			val register = Button("OK")
 			register.font = GUIFont.medium
 			register.setOnAction { _ ->	Registrar.stage.close()	}
-			gridPane.add(register, 1, 1)
+			val rightPane = StackPane(register)
+			rightPane.alignment = Pos.CENTER_RIGHT
+
+			gridPane.add(leftPane, 0, 0)
+			gridPane.add(rightPane, 0, 1)
 
 			return Scene(gridPane, 200.0, 100.0)
+		}
+	}
+
+	// Inserts the user into the database with a NULL phone number
+	private fun registerUser() {
+
+		val userIDStatement = Welcome.connection.createStatement()
+		val usernameStatement = Welcome.connection.createStatement()
+		val emailStatement = Welcome.connection.createStatement()
+		val successStatement = Welcome.connection.createStatement()
+
+		val userIDResult = userIDStatement.executeQuery(SQL.getMaxID())
+		userIDResult.next()
+		val maxID = userIDResult.getInt(1)
+
+		val usernameTakenResult = usernameStatement.executeQuery(SQL.checkForExistingUsername(pendingUser.username))
+		usernameTakenResult.next()
+		val usernameCount = usernameTakenResult.getInt(1)
+
+		val emailExistsResult = emailStatement.executeQuery(SQL.checkForExistingEmail(pendingUser.email))
+		emailExistsResult.next()
+		val emailCount = emailExistsResult.getInt(1)
+
+		when {
+			usernameCount > 0 ->
+				status = RegistrationStatus.USERNAME_TAKEN
+			emailCount > 0 ->
+				status = RegistrationStatus.INVALID_EMAIL
+			else -> {
+				status = RegistrationStatus.SUCCESS
+				try {
+					successStatement.executeUpdate(SQL.createAccount(maxID + 1, pendingUser))
+					Welcome.account = pendingUser
+					Welcome.welcomeBanner.text = "Logged in as " + pendingUser.username
+				} catch (e: Exception) {
+					e.printStackTrace()
+					println("Catastrophic failure!")
+					exitProcess(-1)
+				}
+			}
 		}
 	}
 }

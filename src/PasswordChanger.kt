@@ -3,7 +3,6 @@ import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.control.PasswordField
-import javafx.scene.control.TextField
 import javafx.scene.layout.GridPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
@@ -20,7 +19,7 @@ object PasswordChanger {
 		gridPane.padding = Insets(25.0, 25.0, 25.0, 25.0)
 
 		val password = PasswordField()
-		password.promptText = "Password"
+		password.promptText = "Old Password"
 		password.font = GUIFont.regular
 
 		val newPassword = PasswordField()

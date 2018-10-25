@@ -1,19 +1,22 @@
 CREATE DATABASE scheduler;
 
+GRANT ALL PRIVILEGES ON scheduler.* TO 'java'@'localhost' IDENTIFIED BY 'coffee';
+
 CREATE TABLE Users (
   user_id  INTEGER     NOT NULL,
   username VARCHAR(20) NOT NULL,
   password VARCHAR(20) NOT NULL,
   email    VARCHAR(40) NOT NULL,
   phone    VARCHAR(20),
-  CONSTRAINT users_pk PRIMARY KEY (user_id)
+  CONSTRAINT users_pk PRIMARY KEY (user_id, username, password)
 );
 
 CREATE TABLE Appointments (
-  appointment_id INTEGER  NOT NULL,
-  user_id        INTEGER  NOT NULL,
-  start_date     DATETIME NOT NULL,
-  end_date       DATETIME NOT NULL,
+  appointment_id INTEGER     NOT NULL,
+  user_id        INTEGER     NOT NULL,
+  title          VARCHAR(40) NULL,
+  start_date     DATETIME    NOT NULL,
+  end_date       DATETIME    NOT NULL,
   CONSTRAINT appointment_pk PRIMARY KEY (appointment_id)
 );
 

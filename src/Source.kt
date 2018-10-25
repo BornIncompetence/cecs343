@@ -1,9 +1,11 @@
 import javafx.application.Application
 import javafx.scene.text.Font
 import javafx.stage.Stage
+import java.sql.DriverManager
+import java.sql.SQLException
 
 object GUIFont {
-	val bold           =  Font.loadFont("file:resources/fonts/SF-Pro-Text-Bold.otf", 20.0)!!
+	val bold           = Font.loadFont("file:resources/fonts/SF-Pro-Text-Bold.otf", 20.0)!!
 	val boldItalic     = Font.loadFont("file:resources/fonts/SF-Pro-Text-BoldItalic.otf", 20.0)!!
 	val heavy          = Font.loadFont("file:resources/fonts/SF-Pro-Text-Heavy.otf", 20.0)!!
 	val heavyItalic    = Font.loadFont("file:resources/fonts/SF-Pro-Text-HeavyItalic.otf", 20.0)!!
@@ -17,21 +19,20 @@ object GUIFont {
 	val semibolditalic = Font.loadFont("file:resources/fonts/SF-Pro-Text-SemiboldItalic.otf", 20.0)!!
 }
 
-// This is the main window used by all scene objects to initialize one-another
+// This is the main window used between Logger and Welcome objects
+// By reassigning window.scene, we can switch windows
+// New windows are created by creating a new stage within other objects
+// BTW, objects are effectively Singletons with syntactic sugar
 lateinit var window: Stage
 
-// By default, the first screen users will see is the login, this is to make
-// sure that the correct user is logged into the MYSQL database
-// e.g. <Username>, <Password> = "root", "password"
+// By default, the first screen users will see is the login
+// this is to make sure that the correct user is logged into the MYSQL database
+// e.g. <Username>, <Password> = "java", "coffee"
+// TODO: Enforce login credentials to match values in the database
+// TODO: e.g. find entry that has username, then check if password matches
 class GUI : Application() {
 
-	// We will be using the user's locally installed database for the purposes
-	// of this assignment. The user should already have a MYSQL database
-	// created with the name "scheduler"
-	val url = "jdbc:mysql://localhost:3306/"
-	val database = "scheduler"
-
-	// Entry-point for GUI app.
+	// Entry-point for GUI app. Logger is first screen that users see
 	override fun start(primaryStage: Stage) {
 		window = primaryStage
 
@@ -40,23 +41,35 @@ class GUI : Application() {
 		window.show()
 	}
 
-	// Kotlin needs this for some reason
+	// We'll nestle the main here so it doesn't conflict with other main
+	// * unpacks the Array<String>
 	companion object {
 		@JvmStatic
 		fun main(args: Array<String>) {
-			launch(GUI::class.java)
+			launch(GUI::class.java, *args)
 		}
 	}
 }
 
 // TESTING QUERIES
 fun main(args: Array<String>) {
-	SQL.email = "abcdefg@hijk.lm"
-	SQL.old_username = "Christopher"
-	SQL.old_password = "Greer"
-	SQL.new_username = "Diego"
-	SQL.new_password = "Gonzales"
-	println(SQL.create_account)
+	var pendingUser = Account("john@john.com", "john", "john", null)
+
+	val connection = try {
+		DriverManager.getConnection(SQL.url + SQL.database, SQL.username, SQL.password)
+	} catch (e: SQLException) { null }
+	val statement = connection!!.createStatement()
+	println(SQL.createAccount(5, pendingUser))
+	val userIDResult = statement.executeQuery(SQL.getMaxID())
+
+	var maxID: Int
+	if (userIDResult.next()) {
+		maxID = userIDResult.getInt(1)
+	}
+
+
+	val result = statement.executeUpdate(SQL.createAccount(6, pendingUser))
+
 	//println(SQL.change_user_password)
 	//println(SQL.change_username)
 	//println(SQL.change_password)

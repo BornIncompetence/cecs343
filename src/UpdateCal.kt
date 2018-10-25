@@ -12,6 +12,7 @@ import javafx.scene.control.MenuButton
 import javafx.scene.control.MenuItem
 
 // Create User Account
+@Deprecated("This has been easily implemented using a radio menu system in Welcome.kt")
 object UpdateCal {
     val scene by lazy {	scene()	}
 

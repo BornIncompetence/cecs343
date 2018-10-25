@@ -1,24 +1,30 @@
 import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.Scene
-import javafx.scene.control.Menu
-import javafx.scene.control.MenuBar
-import javafx.scene.control.MenuItem
+import javafx.scene.control.*
 import javafx.scene.layout.GridPane
 import javafx.scene.layout.VBox
 import javafx.scene.text.Text
 import javafx.stage.Modality
 import javafx.stage.Stage
+import java.sql.Connection
 
 // Main menu
 object Welcome {
-	data class User(val email: String?, val username: String, val password: String) {}
-	lateinit var user: User
+	//data class User(val email: String?, val username: String, val password: String) {}
+	lateinit var connection: Connection
+	lateinit var account: Account
+
+	var welcomeBanner = Text()
 	val stage = Stage()
 
 	// Specifies different types of stages to appear on top of main window
 	private enum class StageType {
-		CREATE_ACCOUNT, CHANGE_USERNAME, CHANGE_PASSWORD, MODIFY_ACCOUNT, MAKE_APPOINTMENT, CANCEL_APPOINTMENT, CHANGE_APPOINTMENT, SET_CALENDAR_TYPE, SET_COLOR
+		CREATE_ACCOUNT, CHANGE_USERNAME, CHANGE_PASSWORD, MODIFY_ACCOUNT, MAKE_APPOINTMENT, CANCEL_APPOINTMENT, CHANGE_APPOINTMENT, SET_COLOR
+	}
+
+	enum class CalendarType {
+		WEEK, MONTH, DAY
 	}
 
 	val scene by lazy {	scene()	}
@@ -74,21 +80,26 @@ object Welcome {
 
 		menuAccount.items.addAll(createAccount, changeUsername, changePassword, modifyAccount)
 
-		val setCalendarType = MenuItem("Set calendar type")
-		setCalendarType.setOnAction {
-			_ ->
-			// Change how calendar view is organized get either Week, Month, or Day
-			changeStage(StageType.SET_CALENDAR_TYPE)
-		}
+		val setCalendarType = Menu("Set calendar type")
+		val week = RadioMenuItem("Week")
+		val month = RadioMenuItem("Month")
+		val day = RadioMenuItem("Day")
+		week.isSelected = true
+		setCalendarType.items.addAll(week, month, day)
 		menuSettings.items.addAll(setCalendarType)
+
+		val toggleGroup = ToggleGroup()
+		toggleGroup.toggles.addAll(week, month, day)
 
 		menuBar.menus.addAll(menuAccount, menuAppointment, menuSettings, menuHelp)
 		vbox.children.add(menuBar)
 
 		// TODO: Create a calendar view in place of this, each entry in the calendar has a username
-		val welcomeText = Text("Logged in as " + user.email)
-		welcomeText.font = GUIFont.regularItalic
-		gridPane.add(welcomeText, 0, 1)
+		// NOT NEEDED YET
+		// TODO: Update text when a user creates a new account(switches account)
+		welcomeBanner.text = "Logged in as " + account.username
+		welcomeBanner.font = GUIFont.regularItalic
+		gridPane.add(welcomeBanner, 0, 1)
 
 		vbox.children.add(gridPane)
 
@@ -98,14 +109,13 @@ object Welcome {
 	private fun changeStage(stageType: StageType) {
 		stage.scene = when (stageType) {
 			Welcome.StageType.CREATE_ACCOUNT -> Registrar.scene
-			Welcome.StageType.CHANGE_USERNAME -> TODO()
+			Welcome.StageType.CHANGE_USERNAME -> ChangeName.scene
 			Welcome.StageType.CHANGE_PASSWORD -> PasswordChanger.scene
-			Welcome.StageType.MODIFY_ACCOUNT -> TODO()
-			Welcome.StageType.SET_CALENDAR_TYPE -> TODO() // http://www.java2s.com/Tutorials/JavaImage/Swing/Menu/Create_a_nested_menu_item_for_inner_menu_items_in_Java_Example.PNG
+			Welcome.StageType.MODIFY_ACCOUNT -> ModifyData.scene
 			Welcome.StageType.MAKE_APPOINTMENT -> TODO() // NOT NEEDED YET
 			Welcome.StageType.CANCEL_APPOINTMENT -> TODO() // NOT NEEDED YET
 			Welcome.StageType.CHANGE_APPOINTMENT -> TODO() // NOT NEEDED YET
-			Welcome.StageType.SET_COLOR -> TODO() // NOT NEEDED YET
+			Welcome.StageType.SET_COLOR -> TODO() // NOT NEEDED YET, Probably doesn't need to have its own stage
 		}
 	}
 }
