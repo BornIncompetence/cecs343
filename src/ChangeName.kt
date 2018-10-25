@@ -21,32 +21,40 @@ object ChangeName {
     val scene by lazy {	scene()	}
 
     private fun scene(): Scene {
-
+        //GridPane for scene
         val gridPane = GridPane()
         gridPane.alignment = Pos.CENTER
         gridPane.hgap = 10.0
         gridPane.vgap = 10.0
         gridPane.padding = Insets(25.0, 25.0, 25.0, 25.0)
 
+        //Change Username label
         val text = Label("Change Username")
         text.font = GUIFont.heavy
         gridPane.add(text, 0, 0)
 
+        //Username field
         val username = TextField()
         username.promptText = "Username"
         username.font = GUIFont.regular
 
+        //Add to vbox
         val vbox = VBox(10.0)
         vbox.children.addAll(username)
         gridPane.add(vbox, 0, 1)
 
+        //Update button
         val register = Button("Update")
         register.font = GUIFont.medium
+
+        //Update button onClick action
         register.setOnAction {
             _ ->
+            //SQL Statements
             val usernameStatement = Welcome.connection.createStatement()
             val successStatement = Welcome.connection.createStatement()
 
+            //Username is taken result
             val usernameTakenResult = usernameStatement.executeQuery(SQL.checkForExistingUsername(username.text))
             usernameTakenResult.next()
             val usernameCount = usernameTakenResult.getInt(1)
@@ -63,6 +71,7 @@ object ChangeName {
             }
         }
 
+        //Back button
         val back = Button("Go back")
         back.font = GUIFont.medium
         back.setOnAction { _ -> Welcome.stage.close() }
@@ -91,12 +100,16 @@ object ChangeName {
             val leftPane = StackPane(message)
             leftPane.alignment = Pos.CENTER_LEFT
 
+            //Ok Button
             val register = Button("OK")
             register.font = GUIFont.medium
             register.setOnAction { _ ->	ChangeName.stage.close() }
+
+            //Alignment var
             val rightPane = StackPane(register)
             rightPane.alignment = Pos.CENTER_RIGHT
 
+            //Add to grid pane
             gridPane.add(leftPane, 0, 0)
             gridPane.add(rightPane, 0, 1)
 
