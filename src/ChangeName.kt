@@ -3,15 +3,12 @@ import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.control.Label
-import javafx.scene.control.PasswordField
 import javafx.scene.control.TextField
 import javafx.scene.layout.GridPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
-import java.sql.DriverManager
-import java.sql.SQLException
 
 // Change username of account
 object ChangeName {
@@ -21,6 +18,7 @@ object ChangeName {
     val scene by lazy {	scene()	}
 
     private fun scene(): Scene {
+
         //GridPane for scene
         val gridPane = GridPane()
         gridPane.alignment = Pos.CENTER
@@ -50,23 +48,23 @@ object ChangeName {
         //Update button onClick action
         register.setOnAction {
             _ ->
-            //SQL Statements
-            val usernameStatement = Welcome.connection.createStatement()
-            val successStatement = Welcome.connection.createStatement()
+			// SQL Statements
+            val usernameStatement = connection.createStatement()
+            val successStatement = connection.createStatement()
 
-            //Username is taken result
-            val usernameTakenResult = usernameStatement.executeQuery(SQL.checkForExistingUsername(username.text))
+			// Username is taken result
+            val usernameTakenResult = usernameStatement.executeQuery(checkForExistingUsername(username.text))
             usernameTakenResult.next()
             val usernameCount = usernameTakenResult.getInt(1)
 
             // Makes sure username doesn't already exist
-            if (usernameCount > 0 || Welcome.account.username == "guest") {
+            if (usernameCount > 0 || account.username == "guest") {
                 stage.scene = NameSwapMessage.scene
                 stage.showAndWait()
             } else {
-                successStatement.executeUpdate(SQL.changeUsername(Welcome.account.username, username.text))
-                Welcome.account.username = username.text
-                Welcome.welcomeBanner.text = username.text
+                successStatement.executeUpdate(changeUsername(account.username, username.text))
+                account.username = username.text
+                Welcome.welcomeBanner.text = "Logged in as " + username.text
                 Welcome.stage.close()
             }
         }
@@ -113,7 +111,7 @@ object ChangeName {
             gridPane.add(leftPane, 0, 0)
             gridPane.add(rightPane, 0, 1)
 
-            return Scene(gridPane, 225.0, 100.0)
+            return Scene(gridPane, 250.0, 100.0)
         }
     }
 }

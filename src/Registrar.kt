@@ -4,8 +4,6 @@ import javafx.scene.Scene
 import javafx.scene.control.*
 import javafx.stage.Modality
 import javafx.stage.Stage
-import java.sql.DriverManager
-import java.sql.SQLException
 import javafx.scene.layout.*
 import kotlin.system.exitProcess
 
@@ -14,14 +12,12 @@ import kotlin.system.exitProcess
 object Registrar {
 	private var pendingUser = Account("", "", "", null)
 
-	//stage var
 	val stage = Stage()
 
 	lateinit var status: RegistrationStatus
 	enum class RegistrationStatus {
 		SUCCESS, INVALID_EMAIL, USERNAME_TAKEN, PASSWORD_DIFF, CONNECTION_FAILED
 	}
-
 
 	val scene by lazy { scene() }
 
@@ -79,8 +75,7 @@ object Registrar {
 				registerUser()
 			}
 
-			// Display status message. If Registration succeeded, exit.
-			// TODO: Switch account in session to newly created one
+			// Display status message; if registration succeeded, exit.
 			stage.scene = CreationMessage.scene
 			stage.showAndWait()
 			if (status == RegistrationStatus.SUCCESS) {
@@ -93,12 +88,11 @@ object Registrar {
 		back.font = GUIFont.medium
 		back.setOnAction { _ -> Welcome.stage.close() }
 
-
+		//Horizonal Box
 		val hbox = HBox(10.0)
 		hbox.children.addAll(register, back)
 		gridPane.add(hbox, 0, 1)
 
-		//Return the scene
 		return Scene(gridPane, 250.0, 225.0)
 	}
 
@@ -140,7 +134,6 @@ object Registrar {
 			gridPane.add(leftPane, 0, 0)
 			gridPane.add(rightPane, 0, 1)
 
-			//Return scene
 			return Scene(gridPane, 200.0, 100.0)
 		}
 	}
@@ -149,23 +142,23 @@ object Registrar {
 	private fun registerUser() {
 
 		//Create SQL Statements
-		val userIDStatement = Welcome.connection.createStatement()
-		val usernameStatement = Welcome.connection.createStatement()
-		val emailStatement = Welcome.connection.createStatement()
-		val successStatement = Welcome.connection.createStatement()
+		val userIDStatement = connection.createStatement()
+		val usernameStatement = connection.createStatement()
+		val emailStatement = connection.createStatement()
+		val successStatement = connection.createStatement()
 
-		//Excute UserID statement
-		val userIDResult = userIDStatement.executeQuery(SQL.getMaxID())
+		//Execute UserID statement
+		val userIDResult = userIDStatement.executeQuery(getMaxID())
 		userIDResult.next()
 		val maxID = userIDResult.getInt(1)
 
 		//If taken then display error
-		val usernameTakenResult = usernameStatement.executeQuery(SQL.checkForExistingUsername(pendingUser.username))
+		val usernameTakenResult = usernameStatement.executeQuery(checkForExistingUsername(pendingUser.username))
 		usernameTakenResult.next()
 		val usernameCount = usernameTakenResult.getInt(1)
 
 		//CHECK IF EMAIL EXISTS
-		val emailExistsResult = emailStatement.executeQuery(SQL.checkForExistingEmail(pendingUser.email))
+		val emailExistsResult = emailStatement.executeQuery(checkForExistingEmail(pendingUser.email))
 		emailExistsResult.next()
 		val emailCount = emailExistsResult.getInt(1)
 
@@ -178,8 +171,8 @@ object Registrar {
 			else -> {
 				status = RegistrationStatus.SUCCESS
 				try {
-					successStatement.executeUpdate(SQL.createAccount(maxID + 1, pendingUser))
-					Welcome.account = pendingUser
+					successStatement.executeUpdate(createAccount(maxID + 1, pendingUser))
+					account = pendingUser
 					Welcome.welcomeBanner.text = "Logged in as " + pendingUser.username
 				} catch (e: Exception) {
 					e.printStackTrace()

@@ -42,7 +42,7 @@ object Logger {
 		gridPane.add(text, 0, 0)
 
 		//Username field
-		val username = TextField()
+		val username = TextField("guest")
 		username.promptText = "Username"
 		username.font = GUIFont.regular
 
@@ -72,14 +72,17 @@ object Logger {
 			}
 		}
 
-		// val signUp = Button("Sign up")
-		// signUp.font = GUIFont.medium
-		// signUp.setOnAction { _ -> window.scene = Registrar.scene }
+		// Adding register button into login page, deprecated use
+		/*
+		val signUp = Button("Sign up")
+		signUp.font = GUIFont.medium
+		signUp.setOnAction { _ -> window.scene = Registrar.scene }
 
-		// val hbox = HBox(10.0)
-		// hbox.children.add(signIn)
-		// hbox.children.add(signUp)
-		// gridPane.add(hbox, 0, 2)
+		val hbox = HBox(10.0)
+		hbox.children.add(signIn)
+		hbox.children.add(signUp)
+		gridPane.add(hbox, 0, 2)
+		*/
 
 		gridPane.add(signIn, 0, 2)
 
@@ -90,23 +93,24 @@ object Logger {
 	// The system needs to be able to login to the database
 	// And find the matching user stored in the database
 	private fun login(name: String, pass: String): Boolean {
-		// Check connection
+
+		// Initialize connection
 		try {
-			val connection = DriverManager.getConnection(SQL.url + SQL.database, SQL.username, SQL.password)
-			Welcome.connection = connection
+			val connect = DriverManager.getConnection(SQL_URL + SQLDatabase, SQLUsername, SQLPassword)
+			connection = connect
 		} catch (e: SQLException) {
 			status = LoginStatus.CONNECTION_FAILED
 			return false
 		}
 
-		val statement = Welcome.connection.createStatement()
-		val result = statement.executeQuery(SQL.getMatchingRow(name, pass))
+		val statement = connection.createStatement()
+		val result = statement.executeQuery(getMatchingRow(name, pass))
 		return if (result.next()) {
 			val email = result.getString("email")
 			val username = result.getString("username")
 			val password = result.getString("password")
 			val phone = result.getString("phone")
-			Welcome.account = Account(email, username, password, phone)
+			account = Account(email, username, password, phone)
 			status = LoginStatus.SUCCESS
 			true
 		} else {
@@ -148,8 +152,7 @@ object Logger {
 			gridPane.add(leftPane, 0, 0)
 			gridPane.add(rightPane, 0, 1)
 
-			//Return Scene
-			return Scene(gridPane, 225.0, 100.0)
+			return Scene(gridPane, 250.0, 100.0)
 		}
 	}
 }

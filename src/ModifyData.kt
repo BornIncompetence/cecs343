@@ -3,7 +3,6 @@ import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.control.Label
-import javafx.scene.control.PasswordField
 import javafx.scene.control.TextField
 import javafx.scene.layout.GridPane
 import javafx.scene.layout.HBox
@@ -41,9 +40,25 @@ object ModifyData {
         register.font = GUIFont.medium
         register.setOnAction {
             _ ->
+            val emailStatement = connection.createStatement()
+            val successEmailStatement = connection.createStatement()
+            val successPhoneStatement = connection.createStatement()
 
+            val emailExistsResult = emailStatement.executeQuery(checkForExistingEmail(email.text))
+            emailExistsResult.next()
+            val emailCount = emailExistsResult.getInt(1)
 
-            //TODO insert functionallity
+            // No collisions with other email addresses exist
+            if (emailCount == 0 && email.text != "") {
+                successEmailStatement.executeUpdate(changeEmail(account.username, email.text))
+                account.email = email.text
+
+            }
+            // The same phone number can apply to other users however
+            if (phoneNumber.text != "") {
+                successPhoneStatement.executeUpdate(changePhoneNumber(account.username, phoneNumber.text))
+                account.phone = phoneNumber.text
+            }
             Welcome.stage.close()
         }
 

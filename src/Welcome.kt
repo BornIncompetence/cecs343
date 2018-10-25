@@ -7,15 +7,11 @@ import javafx.scene.layout.VBox
 import javafx.scene.text.Text
 import javafx.stage.Modality
 import javafx.stage.Stage
-import java.sql.Connection
 
 // Main menu
 object Welcome {
-	//Get connection
-	lateinit var connection: Connection
-	//Get account
-	lateinit var account: Account
-	//Get welcome Text
+
+
 	var welcomeBanner = Text()
 	//Get the stage var
 	val stage = Stage()
@@ -36,7 +32,6 @@ object Welcome {
 	private fun scene(): Scene {
 
 		stage.initModality(Modality.APPLICATION_MODAL)
-
 
 		val vbox = VBox(10.0)
 		vbox.alignment = Pos.TOP_LEFT
@@ -77,7 +72,6 @@ object Welcome {
 		val changePassword = MenuItem("Change password")
 		changePassword.setOnAction {
 			_ ->
-			// Change password associated with username
 			changeStage(StageType.CHANGE_PASSWORD)
 			stage.showAndWait()
 		}
@@ -86,7 +80,6 @@ object Welcome {
 		val modifyAccount = MenuItem("Modify account")
 		modifyAccount.setOnAction {
 			_ ->
-			// What kind of settings would we change?
 			changeStage(StageType.MODIFY_ACCOUNT)
 			stage.showAndWait()
 		}
@@ -115,9 +108,8 @@ object Welcome {
 		//Add all menuBar to the view
 		vbox.children.add(menuBar)
 
-		// TODO: Create a calendar view in place of this, each entry in the calendar has a username
+		// TODO: Create a calendar view in place of welcome banner, each entry in the calendar has a username
 		// NOT NEEDED YET
-		// TODO: Update text when a user creates a new account(switches account)
 
 		//Set welcome banner to username
 		welcomeBanner.text = "Logged in as " + account.username
@@ -127,7 +119,6 @@ object Welcome {
 		//Add grid to vbox
 		vbox.children.add(gridPane)
 
-		//Return the entire scene
 		return Scene(vbox, 300.0, 200.0)
 	}
 

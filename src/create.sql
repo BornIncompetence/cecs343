@@ -2,6 +2,8 @@ CREATE DATABASE scheduler;
 
 GRANT ALL PRIVILEGES ON scheduler.* TO 'java'@'localhost' IDENTIFIED BY 'coffee';
 
+USE scheduler;
+
 CREATE TABLE Users (
   user_id  INTEGER     NOT NULL,
   username VARCHAR(20) NOT NULL,

@@ -1,6 +1,7 @@
 import javafx.application.Application
 import javafx.scene.text.Font
 import javafx.stage.Stage
+import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.SQLException
 
@@ -19,17 +20,25 @@ object GUIFont {
 	val semibolditalic = Font.loadFont("file:resources/fonts/SF-Pro-Text-SemiboldItalic.otf", 20.0)!!
 }
 
+// Account data class used for storing current user credentials during the session
+data class Account(var email: String, var username: String, var password: String, var phone: String?)
+
 // This is the main window used between Logger and Welcome objects
 // By reassigning window.scene, we can switch windows
 // New windows are created by creating a new stage within other objects
 // BTW, objects are effectively Singletons with syntactic sugar
 lateinit var window: Stage
 
+// This is the connection that all windows use to create statements that execute SQL queries
+// It only needs to be initialized once
+lateinit var connection: Connection
+
+// This is the account that is logged into the account
+lateinit var account: Account
+
 // By default, the first screen users will see is the login
 // this is to make sure that the correct user is logged into the MYSQL database
 // e.g. <Username>, <Password> = "java", "coffee"
-// TODO: Enforce login credentials to match values in the database
-// TODO: e.g. find entry that has username, then check if password matches
 class GUI : Application() {
 
 	// Entry-point for GUI app. Logger is first screen that users see
@@ -40,37 +49,8 @@ class GUI : Application() {
 		window.title = "Vision"
 		window.show()
 	}
-
-	// We'll nestle the main here so it doesn't conflict with other main
-	// * unpacks the Array<String>
-	companion object {
-		@JvmStatic
-		fun main(args: Array<String>) {
-			launch(GUI::class.java, *args)
-		}
-	}
 }
 
-// TESTING QUERIES
 fun main(args: Array<String>) {
-	var pendingUser = Account("john@john.com", "john", "john", null)
-
-	val connection = try {
-		DriverManager.getConnection(SQL.url + SQL.database, SQL.username, SQL.password)
-	} catch (e: SQLException) { null }
-	val statement = connection!!.createStatement()
-	println(SQL.createAccount(5, pendingUser))
-	val userIDResult = statement.executeQuery(SQL.getMaxID())
-
-	var maxID: Int
-	if (userIDResult.next()) {
-		maxID = userIDResult.getInt(1)
-	}
-
-
-	val result = statement.executeUpdate(SQL.createAccount(6, pendingUser))
-
-	//println(SQL.change_user_password)
-	//println(SQL.change_username)
-	//println(SQL.change_password)
+	Application.launch(GUI::class.java, *args)
 }
