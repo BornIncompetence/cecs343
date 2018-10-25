@@ -29,30 +29,38 @@ object Logger {
 
 		stage.initModality(Modality.APPLICATION_MODAL)
 
+		//Main gridpane
 		val gridPane = GridPane()
 		gridPane.alignment = Pos.CENTER
 		gridPane.hgap = 10.0
 		gridPane.vgap = 10.0
 		gridPane.padding = Insets(25.0, 25.0, 25.0, 25.0)
 
+		//Login Label
 		val text = Label("Login")
 		text.font = GUIFont.heavy
 		gridPane.add(text, 0, 0)
 
+		//Username field
 		val username = TextField()
 		username.promptText = "Username"
 		username.font = GUIFont.regular
 
+		//Password Field
 		val password = PasswordField()
 		password.promptText = "Password"
 		password.font = GUIFont.regular
 
+		//View Box
 		val vbox = VBox(10.0)
 		vbox.children.addAll(username, password)
 		gridPane.add(vbox, 0, 1)
 
+		//Sign in Button
 		val signIn = Button("Sign in")
 		signIn.font = GUIFont.medium
+
+		//Sign In button click
 		signIn.setOnAction {
 			_ ->
 			// Check if username OR email address matches with password
@@ -128,15 +136,19 @@ object Logger {
 			val leftPane = StackPane(message)
 			leftPane.alignment = Pos.CENTER_LEFT
 
+			///Ok Button
 			val register = Button("OK")
 			register.font = GUIFont.medium
 			register.setOnAction { _ ->	Logger.stage.close() }
+
+			//RightPane
 			val rightPane = StackPane(register)
 			rightPane.alignment = Pos.CENTER_RIGHT
 
 			gridPane.add(leftPane, 0, 0)
 			gridPane.add(rightPane, 0, 1)
 
+			//Return Scene
 			return Scene(gridPane, 225.0, 100.0)
 		}
 	}
