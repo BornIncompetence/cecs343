@@ -1,11 +1,9 @@
-import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.PasswordField
 import javafx.scene.control.TextField
-import javafx.scene.layout.GridPane
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 import javafx.stage.Modality
@@ -29,12 +27,7 @@ object Logger {
 
 		stage.initModality(Modality.APPLICATION_MODAL)
 
-		//Main gridpane
-		val gridPane = GridPane()
-		gridPane.alignment = Pos.CENTER
-		gridPane.hgap = 10.0
-		gridPane.vgap = 10.0
-		gridPane.padding = Insets(25.0, 25.0, 25.0, 25.0)
+		val gridPane = grid()
 
 		//Login Label
 		val text = Label("Login")
@@ -51,10 +44,10 @@ object Logger {
 		password.promptText = "Password"
 		password.font = GUIFont.regular
 
-		//View Box
-		val vbox = VBox(10.0)
-		vbox.children.addAll(username, password)
-		gridPane.add(vbox, 0, 1)
+		//Vertical View Box
+		val vBox = VBox(10.0)
+		vBox.children.addAll(username, password)
+		gridPane.add(vBox, 0, 1)
 
 		//Sign in Button
 		val signIn = Button("Sign in")
@@ -62,7 +55,6 @@ object Logger {
 
 		//Sign In button click
 		signIn.setOnAction {
-			_ ->
 			// Check if username OR email address matches with password
 			if (login(username.text, password.text)) {
 				window.scene = Welcome.scene
@@ -78,10 +70,10 @@ object Logger {
 		signUp.font = GUIFont.medium
 		signUp.setOnAction { _ -> window.scene = Registrar.scene }
 
-		val hbox = HBox(10.0)
-		hbox.children.add(signIn)
-		hbox.children.add(signUp)
-		gridPane.add(hbox, 0, 2)
+		val hBox = HBox(10.0)
+		hBox.children.add(signIn)
+		hBox.children.add(signUp)
+		gridPane.add(hBox, 0, 2)
 		*/
 
 		gridPane.add(signIn, 0, 2)
@@ -125,11 +117,7 @@ object Logger {
 
 		private fun scene(): Scene {
 
-			val gridPane = GridPane()
-			gridPane.alignment = Pos.CENTER
-			gridPane.hgap = 10.0
-			gridPane.vgap = 10.0
-			gridPane.padding = Insets(25.0, 25.0, 25.0, 25.0)
+			val gridPane = grid()
 
 			// The SUCCESS option will never be initialized, but Kotlin enforces exhaustion of all enums
 			val message = when (status) {
@@ -137,15 +125,17 @@ object Logger {
 				LoginStatus.INCORRECT -> Label("Username or password incorrect")
 				LoginStatus.CONNECTION_FAILED -> Label("A connection could not be established to database")
 			}
+
+			//Left-aligned pane for message
 			val leftPane = StackPane(message)
 			leftPane.alignment = Pos.CENTER_LEFT
 
-			///Ok Button
+			//Ok Button
 			val register = Button("OK")
 			register.font = GUIFont.medium
-			register.setOnAction { _ ->	Logger.stage.close() }
+			register.setOnAction { Logger.stage.close() }
 
-			//RightPane
+			//Right-aligned pane for button
 			val rightPane = StackPane(register)
 			rightPane.alignment = Pos.CENTER_RIGHT
 

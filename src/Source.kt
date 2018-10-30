@@ -1,4 +1,7 @@
 import javafx.application.Application
+import javafx.geometry.Insets
+import javafx.geometry.Pos
+import javafx.scene.layout.GridPane
 import javafx.scene.text.Font
 import javafx.stage.Stage
 import java.sql.Connection
@@ -6,18 +9,18 @@ import java.sql.DriverManager
 import java.sql.SQLException
 
 object GUIFont {
-	val bold           = Font.loadFont("file:resources/fonts/SF-Pro-Text-Bold.otf", 20.0)!!
-	val boldItalic     = Font.loadFont("file:resources/fonts/SF-Pro-Text-BoldItalic.otf", 20.0)!!
+	// val bold           = Font.loadFont("file:resources/fonts/SF-Pro-Text-Bold.otf", 20.0)!!
+	// val boldItalic     = Font.loadFont("file:resources/fonts/SF-Pro-Text-BoldItalic.otf", 20.0)!!
 	val heavy          = Font.loadFont("file:resources/fonts/SF-Pro-Text-Heavy.otf", 20.0)!!
-	val heavyItalic    = Font.loadFont("file:resources/fonts/SF-Pro-Text-HeavyItalic.otf", 20.0)!!
-	val light          = Font.loadFont("file:resources/fonts/SF-Pro-Text-Light.otf", 20.0)!!
-	val lightItalic    = Font.loadFont("file:resources/fonts/SF-Pro-Text-LightItalic.otf", 20.0)!!
+	// val heavyItalic    = Font.loadFont("file:resources/fonts/SF-Pro-Text-HeavyItalic.otf", 20.0)!!
+	// val light          = Font.loadFont("file:resources/fonts/SF-Pro-Text-Light.otf", 20.0)!!
+	// val lightItalic    = Font.loadFont("file:resources/fonts/SF-Pro-Text-LightItalic.otf", 20.0)!!
 	val medium         = Font.loadFont("file:resources/fonts/SF-Pro-Text-Medium.otf", 12.0)!!
-	val mediumItalic   = Font.loadFont("file:resources/fonts/SF-Pro-Text-MediumItalic.otf", 20.0)!!
+	// val mediumItalic   = Font.loadFont("file:resources/fonts/SF-Pro-Text-MediumItalic.otf", 20.0)!!
 	val regular        = Font.loadFont("file:resources/fonts/SF-Pro-Text-Regular.otf", 12.0)!!
 	val regularItalic  = Font.loadFont("file:resources/fonts/SF-Pro-Text-RegularItalic.otf", 12.0)!!
-	val semibold       = Font.loadFont("file:resources/fonts/SF-Pro-Text-Semibold.otf", 20.0)!!
-	val semibolditalic = Font.loadFont("file:resources/fonts/SF-Pro-Text-SemiboldItalic.otf", 20.0)!!
+	// val semibold       = Font.loadFont("file:resources/fonts/SF-Pro-Text-Semibold.otf", 20.0)!!
+	// val semibolditalic = Font.loadFont("file:resources/fonts/SF-Pro-Text-SemiboldItalic.otf", 20.0)!!
 }
 
 // Account data class used for storing current user credentials during the session
@@ -35,6 +38,16 @@ lateinit var connection: Connection
 
 // This is the account that is logged into the account
 lateinit var account: Account
+
+// This is the gridPane that every window uses
+fun grid(): GridPane {
+	val gridPane = GridPane()
+	gridPane.alignment = Pos.CENTER
+	gridPane.hgap = 10.0
+	gridPane.vgap = 10.0
+	gridPane.padding = Insets(25.0, 25.0, 25.0, 25.0)
+	return gridPane
+}
 
 // By default, the first screen users will see is the login
 // this is to make sure that the correct user is logged into the MYSQL database

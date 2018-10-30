@@ -1,24 +1,17 @@
-import javafx.geometry.Insets
-import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
-import javafx.scene.layout.GridPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 
-// Create User Account
+// Modify data such as email address and phone
 object ModifyData {
     val scene by lazy {	scene()	}
 
     private fun scene(): Scene {
 
-        val gridPane = GridPane()
-        gridPane.alignment = Pos.CENTER
-        gridPane.hgap = 10.0
-        gridPane.vgap = 10.0
-        gridPane.padding = Insets(25.0, 25.0, 25.0, 25.0)
+        val gridPane = grid()
 
         val text = Label("Modify Account")
         text.font = GUIFont.heavy
@@ -32,14 +25,13 @@ object ModifyData {
         phoneNumber.promptText = "Phone Number"
         phoneNumber.font = GUIFont.regular
 
-        val vbox = VBox(10.0)
-        vbox.children.addAll(email, phoneNumber)
-        gridPane.add(vbox, 0, 1)
+        val vBox = VBox(10.0)
+        vBox.children.addAll(email, phoneNumber)
+        gridPane.add(vBox, 0, 1)
 
         val register = Button("Update")
         register.font = GUIFont.medium
         register.setOnAction {
-            _ ->
             val emailStatement = connection.createStatement()
             val successEmailStatement = connection.createStatement()
             val successPhoneStatement = connection.createStatement()
@@ -64,11 +56,11 @@ object ModifyData {
 
         val back = Button("Go back")
         back.font = GUIFont.medium
-        back.setOnAction { _ -> Welcome.stage.close() }
+        back.setOnAction { Welcome.stage.close() }
 
-        val hbox = HBox(10.0)
-        hbox.children.addAll(register, back)
-        gridPane.add(hbox, 0, 2)
+        val hBox = HBox(10.0)
+        hBox.children.addAll(register, back)
+        gridPane.add(hBox, 0, 2)
 
         return Scene(gridPane, 250.0, 225.0)
     }

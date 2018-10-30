@@ -1,10 +1,8 @@
-import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
-import javafx.scene.layout.GridPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
@@ -19,12 +17,7 @@ object ChangeName {
 
     private fun scene(): Scene {
 
-        //GridPane for scene
-        val gridPane = GridPane()
-        gridPane.alignment = Pos.CENTER
-        gridPane.hgap = 10.0
-        gridPane.vgap = 10.0
-        gridPane.padding = Insets(25.0, 25.0, 25.0, 25.0)
+        val gridPane = grid()
 
         //Change Username label
         val text = Label("Change Username")
@@ -36,10 +29,10 @@ object ChangeName {
         username.promptText = "Username"
         username.font = GUIFont.regular
 
-        //Add to vbox
-        val vbox = VBox(10.0)
-        vbox.children.addAll(username)
-        gridPane.add(vbox, 0, 1)
+        //Add to vBox
+        val vBox = VBox(10.0)
+        vBox.children.addAll(username)
+        gridPane.add(vBox, 0, 1)
 
         //Update button
         val register = Button("Update")
@@ -47,7 +40,6 @@ object ChangeName {
 
         //Update button onClick action
         register.setOnAction {
-            _ ->
 			// SQL Statements
             val usernameStatement = connection.createStatement()
             val successStatement = connection.createStatement()
@@ -72,11 +64,11 @@ object ChangeName {
         //Back button
         val back = Button("Go back")
         back.font = GUIFont.medium
-        back.setOnAction { _ -> Welcome.stage.close() }
+        back.setOnAction { Welcome.stage.close() }
 
-        val hbox = HBox(10.0)
-        hbox.children.addAll(register, back)
-        gridPane.add(hbox, 0, 2)
+        val hBox = HBox(10.0)
+        hBox.children.addAll(register, back)
+        gridPane.add(hBox, 0, 2)
 
         return Scene(gridPane, 250.0, 225.0)
     }
@@ -87,11 +79,7 @@ object ChangeName {
 
         private fun scene(): Scene {
 
-            val gridPane = GridPane()
-            gridPane.alignment = Pos.CENTER
-            gridPane.hgap = 10.0
-            gridPane.vgap = 10.0
-            gridPane.padding = Insets(25.0, 25.0, 25.0, 25.0)
+            val gridPane = grid()
 
             // The SUCCESS option will never be initialized, but Kotlin enforces exhaustion of all enums
             val message = Label("Username taken")
@@ -101,7 +89,7 @@ object ChangeName {
             //Ok Button
             val register = Button("OK")
             register.font = GUIFont.medium
-            register.setOnAction { _ ->	ChangeName.stage.close() }
+            register.setOnAction { ChangeName.stage.close() }
 
             //Alignment var
             val rightPane = StackPane(register)

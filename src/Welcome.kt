@@ -1,8 +1,6 @@
-import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.control.*
-import javafx.scene.layout.GridPane
 import javafx.scene.layout.VBox
 import javafx.scene.text.Text
 import javafx.stage.Modality
@@ -10,10 +8,8 @@ import javafx.stage.Stage
 
 // Main menu
 object Welcome {
-
-
 	var welcomeBanner = Text()
-	//Get the stage var
+	// Stage for many of the menu bar options available
 	val stage = Stage()
 
 	// Specifies different types of stages to appear on top of main window
@@ -33,15 +29,7 @@ object Welcome {
 
 		stage.initModality(Modality.APPLICATION_MODAL)
 
-		val vbox = VBox(10.0)
-		vbox.alignment = Pos.TOP_LEFT
-
-		//Create a grid pane to organize view
-		val gridPane = GridPane()
-		gridPane.alignment = Pos.CENTER
-		gridPane.hgap = 10.0
-		gridPane.vgap = 10.0
-		gridPane.padding = Insets(25.0, 25.0, 25.0, 25.0)
+		val gridPane = grid()
 
 		//Create the menu bar
 		val menuBar = MenuBar()
@@ -55,7 +43,6 @@ object Welcome {
 
 		//Open CreateAccount window on menu click
 		createAccount.setOnAction {
-			_ ->
 			changeStage(StageType.CREATE_ACCOUNT)
 			stage.showAndWait()
 		}
@@ -63,7 +50,6 @@ object Welcome {
 		//Open ChangeUsername window on menu click
 		val changeUsername = MenuItem("Change user name")
 		changeUsername.setOnAction {
-			_ ->
 			changeStage(StageType.CHANGE_USERNAME)
 			stage.showAndWait()
 		}
@@ -71,7 +57,6 @@ object Welcome {
 		//Open ChangePassword window on menu click
 		val changePassword = MenuItem("Change password")
 		changePassword.setOnAction {
-			_ ->
 			changeStage(StageType.CHANGE_PASSWORD)
 			stage.showAndWait()
 		}
@@ -79,12 +64,11 @@ object Welcome {
 		//Open modifyAccount window on menu click
 		val modifyAccount = MenuItem("Modify account")
 		modifyAccount.setOnAction {
-			_ ->
 			changeStage(StageType.MODIFY_ACCOUNT)
 			stage.showAndWait()
 		}
 
-		//Add all menue items to the menu
+		//Add all menu items to the menu
 		menuAccount.items.addAll(createAccount, changeUsername, changePassword, modifyAccount)
 
 		//Create the calendar type menu to the view
@@ -93,20 +77,17 @@ object Welcome {
 		val month = RadioMenuItem("Month")
 		val day = RadioMenuItem("Day")
 
-		//Start off by selecting the week calander view
+		//Start off by selecting the week calender view
 		week.isSelected = true
 		setCalendarType.items.addAll(week, month, day)
 		menuSettings.items.addAll(setCalendarType)
 
-		//Add the toggleview with all the options
+		//Add the for calendar view type
 		val toggleGroup = ToggleGroup()
 		toggleGroup.toggles.addAll(week, month, day)
 
-		//Add all menus to the menubar
+		//Add all menus to the menu bar
 		menuBar.menus.addAll(menuAccount, menuAppointment, menuSettings, menuHelp)
-
-		//Add all menuBar to the view
-		vbox.children.add(menuBar)
 
 		// TODO: Create a calendar view in place of welcome banner, each entry in the calendar has a username
 		// NOT NEEDED YET
@@ -116,13 +97,15 @@ object Welcome {
 		welcomeBanner.font = GUIFont.regularItalic
 		gridPane.add(welcomeBanner, 0, 1)
 
-		//Add grid to vbox
-		vbox.children.add(gridPane)
+		//Add grid to vBox
+		val vBox = VBox(10.0)
+		vBox.alignment = Pos.TOP_LEFT
+		vBox.children.addAll(menuBar, gridPane)
 
-		return Scene(vbox, 300.0, 200.0)
+		return Scene(vBox, 300.0, 200.0)
 	}
 
-	//This function takes a stagetype and excutes its corresponing window
+	//This function takes a stage type and executes its corresponding window
 	private fun changeStage(stageType: StageType) {
 		stage.scene = when (stageType) {
 			Welcome.StageType.CREATE_ACCOUNT -> Registrar.scene

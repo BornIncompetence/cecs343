@@ -7,7 +7,6 @@ import javafx.stage.Stage
 import javafx.scene.layout.*
 import kotlin.system.exitProcess
 
-
 // Create User Account
 object Registrar {
 	private var pendingUser = Account("", "", "", null)
@@ -25,12 +24,7 @@ object Registrar {
 
 		stage.initModality(Modality.APPLICATION_MODAL)
 
-		//Create gridpane
-		val gridPane = GridPane()
-		gridPane.alignment = Pos.CENTER
-		gridPane.hgap = 10.0
-		gridPane.vgap = 10.0
-		gridPane.padding = Insets(25.0, 25.0, 25.0, 25.0)
+		val gridPane = grid()
 
 		//Email field
 		val email = TextField()
@@ -52,17 +46,17 @@ object Registrar {
 		retypePassword.promptText = "Retype Password"
 		retypePassword.font = GUIFont.regular
 
-		//Add all fields to vbox
-		val vbox = VBox(10.0)
-		vbox.children.addAll(email, username, password, retypePassword)
-		gridPane.add(vbox, 0, 0)
+		//Add all fields to vBox
+		val vBox = VBox(10.0)
+		vBox.children.addAll(email, username, password, retypePassword)
+		gridPane.add(vBox, 0, 0)
 
 		//Register button
 		val register = Button("Register")
 		register.font = GUIFont.medium
 
 		//On register click
-		register.setOnAction { _ ->
+		register.setOnAction {
 			//Make sure passwords are the same
 			if (password.text != retypePassword.text) {
 				status = RegistrationStatus.PASSWORD_DIFF
@@ -86,12 +80,12 @@ object Registrar {
 		//Back Button
 		val back = Button("Go back")
 		back.font = GUIFont.medium
-		back.setOnAction { _ -> Welcome.stage.close() }
+		back.setOnAction { Welcome.stage.close() }
 
-		//Horizonal Box
-		val hbox = HBox(10.0)
-		hbox.children.addAll(register, back)
-		gridPane.add(hbox, 0, 1)
+		//Horizontal Box
+		val hBox = HBox(10.0)
+		hBox.children.addAll(register, back)
+		gridPane.add(hBox, 0, 1)
 
 		return Scene(gridPane, 250.0, 225.0)
 	}
@@ -117,16 +111,16 @@ object Registrar {
 				RegistrationStatus.CONNECTION_FAILED -> Label("A connection could not be established to database")
 			}
 
-			//Left allignment
+			//Left alignment
 			val leftPane = StackPane(message)
 			leftPane.alignment = Pos.CENTER_LEFT
 
 			//Register button
 			val register = Button("OK")
 			register.font = GUIFont.medium
-			register.setOnAction { _ ->	Registrar.stage.close()	}
+			register.setOnAction { Registrar.stage.close()	}
 
-			//Right Pane allignment
+			//Right Pane alignment
 			val rightPane = StackPane(register)
 			rightPane.alignment = Pos.CENTER_RIGHT
 

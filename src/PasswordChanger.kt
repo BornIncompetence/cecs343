@@ -1,17 +1,17 @@
-import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.PasswordField
-import javafx.scene.layout.GridPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 import javafx.stage.Modality
 import javafx.stage.Stage
 
+// Change password of account
 object PasswordChanger {
+	// Stage that appears when user cannot change password
 	private val stage = Stage()
 
 	lateinit var status: PasswordStatus
@@ -25,11 +25,7 @@ object PasswordChanger {
 
 		stage.initModality(Modality.APPLICATION_MODAL)
 
-		val gridPane = GridPane()
-		gridPane.alignment = Pos.CENTER
-		gridPane.hgap = 10.0
-		gridPane.vgap = 10.0
-		gridPane.padding = Insets(25.0, 25.0, 25.0, 25.0)
+		val gridPane = grid()
 
 		val password = PasswordField()
 		password.promptText = "Old Password"
@@ -43,14 +39,13 @@ object PasswordChanger {
 		retypeNewPassword.promptText = "Retype New Password"
 		retypeNewPassword.font = GUIFont.regular
 
-		val vbox = VBox(10.0)
-		vbox.children.addAll(password, newPassword, retypeNewPassword)
-		gridPane.add(vbox, 0, 0)
+		val vBox = VBox(10.0)
+		vBox.children.addAll(password, newPassword, retypeNewPassword)
+		gridPane.add(vBox, 0, 0)
 
 		val register = Button("Change Password")
 		register.font = GUIFont.medium
 		register.setOnAction {
-			_ ->
 			val correctPasswordStatement = connection.createStatement()
 			val successStatement = connection.createStatement()
 
@@ -81,11 +76,11 @@ object PasswordChanger {
 
 		val back = Button("Cancel")
 		back.font = GUIFont.medium
-		back.setOnAction { _ -> Welcome.stage.close() }
+		back.setOnAction { Welcome.stage.close() }
 
-		val hbox = HBox(10.0)
-		hbox.children.addAll(register, back)
-		gridPane.add(hbox, 0, 2)
+		val hBox = HBox(10.0)
+		hBox.children.addAll(register, back)
+		gridPane.add(hBox, 0, 2)
 
 		return Scene(gridPane, 250.0, 225.0)
 	}
@@ -96,11 +91,7 @@ object PasswordChanger {
 
 		private fun scene(): Scene {
 
-			val gridPane = GridPane()
-			gridPane.alignment = Pos.CENTER
-			gridPane.hgap = 10.0
-			gridPane.vgap = 10.0
-			gridPane.padding = Insets(25.0, 25.0, 25.0, 25.0)
+			val gridPane = grid()
 
 			// The SUCCESS option will never be initialized, but Kotlin enforces exhaustion of all enums
 			val message = when (status) {
@@ -112,7 +103,7 @@ object PasswordChanger {
 
 			val register = Button("OK")
 			register.font = GUIFont.medium
-			register.setOnAction { _ ->	PasswordChanger.stage.close() }
+			register.setOnAction { PasswordChanger.stage.close() }
 			val rightPane = StackPane(register)
 			rightPane.alignment = Pos.CENTER_RIGHT
 
