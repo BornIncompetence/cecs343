@@ -26,6 +26,10 @@ object Registrar {
 
 		val gridPane = grid()
 
+		val text = Label("Create Account")
+		text.font = GUIFont.heavy
+		gridPane.add(text, 0, 0)
+
 		//Email field
 		val email = TextField()
 		email.promptText = "Email"
@@ -49,7 +53,7 @@ object Registrar {
 		//Add all fields to vBox
 		val vBox = VBox(10.0)
 		vBox.children.addAll(email, username, password, retypePassword)
-		gridPane.add(vBox, 0, 0)
+		gridPane.add(vBox, 0, 1)
 
 		//Register button
 		val register = Button("Register")
@@ -85,7 +89,7 @@ object Registrar {
 		//Horizontal Box
 		val hBox = HBox(10.0)
 		hBox.children.addAll(register, back)
-		gridPane.add(hBox, 0, 1)
+		gridPane.add(hBox, 0, 2)
 
 		return Scene(gridPane, 250.0, 225.0)
 	}

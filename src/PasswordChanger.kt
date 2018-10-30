@@ -27,6 +27,10 @@ object PasswordChanger {
 
 		val gridPane = grid()
 
+		val text = Label("Change Password")
+		text.font = GUIFont.heavy
+		gridPane.add(text, 0, 0)
+
 		val password = PasswordField()
 		password.promptText = "Old Password"
 		password.font = GUIFont.regular
@@ -41,7 +45,7 @@ object PasswordChanger {
 
 		val vBox = VBox(10.0)
 		vBox.children.addAll(password, newPassword, retypeNewPassword)
-		gridPane.add(vBox, 0, 0)
+		gridPane.add(vBox, 0, 1)
 
 		val register = Button("Change Password")
 		register.font = GUIFont.medium

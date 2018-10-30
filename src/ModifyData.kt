@@ -62,6 +62,6 @@ object ModifyData {
         hBox.children.addAll(register, back)
         gridPane.add(hBox, 0, 2)
 
-        return Scene(gridPane, 250.0, 225.0)
+        return Scene(gridPane, 250.0, 175.0)
     }
 }

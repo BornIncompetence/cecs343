@@ -70,7 +70,7 @@ object ChangeName {
         hBox.children.addAll(register, back)
         gridPane.add(hBox, 0, 2)
 
-        return Scene(gridPane, 250.0, 225.0)
+        return Scene(gridPane, 250.0, 150.0)
     }
 
     // Window shown when changing username has failed
