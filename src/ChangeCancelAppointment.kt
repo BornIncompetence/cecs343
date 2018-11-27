@@ -8,8 +8,7 @@ import javafx.scene.layout.HBox
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
-import java.util.Random
-import javax.swing.JList
+import java.sql.SQLException
 
 // Change username of account
 object ChangeCancelAppointment {
@@ -17,6 +16,9 @@ object ChangeCancelAppointment {
     private val stage = Stage()
 
     val scene by lazy {	scene()	}
+
+    // The current apptID that we'll modify the database with
+    private var apptID: Int = Int.MAX_VALUE
 
     private fun scene(): Scene {
 
@@ -32,8 +34,9 @@ object ChangeCancelAppointment {
         gridPane.add(selectAppLabel, 0, 0)
 
         //Appointment Name Field
-        val selectApp = ComboBox<String>();
-        try{
+        val selectApp = ComboBox<String>()
+        val appointments = mutableListOf<Appointment>()
+        try {
             val successGetApptStatement = connection.createStatement()
             val apptResult = successGetApptStatement.executeQuery(getAppointments(account.username))
 
@@ -43,14 +46,15 @@ object ChangeCancelAppointment {
                 val end = apptResult.getString("end_date")
                 val id = apptResult.getInt("appointment_id")
 
-                val listString = "NAME: " + title +" DATES: (" + start + ") - (" + end +") ID: " +  id ;
+                appointments.add(Appointment(title, start, end, id))
 
+                val listString = "NAME: $title DATES: ($start) - ($end) ID: $id"
 
                 selectApp.items.add(listString)
             }
 
-        }catch (e:Exception){
-
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
 
 
@@ -79,10 +83,18 @@ object ChangeCancelAppointment {
         endDate.promptText = "YYYY-MM-DD HH:MM:SS"
         endDate.font = GUIFont.regular
 
-
-
-
-
+        selectApp.selectionModel.selectedItemProperty().addListener { _, _, newValue ->
+            val appt = appointments.find {
+                val foundID = newValue.extractID()
+                it.id == foundID
+            }
+            if (appt != null) {
+                apptID = appt.id
+                newName.text = appt.title
+                startDate.text = appt.startDate
+                endDate.text = appt.endDate
+            }
+        }
 
         //Add to vBox
         val vBox = VBox(10.0)
@@ -101,31 +113,55 @@ object ChangeCancelAppointment {
         gridPane.add(vBox, 0, 1)
 
         //Update button
-        val register = Button("Change")
-        register.font = GUIFont.medium
+        val modify = Button("Change")
+        modify.font = GUIFont.medium
 
+        //TODO: Update ComboBox to reflect changes in database, and edit weird behavior with datetime
         //Update button onClick action
-        register.setOnAction {
+        modify.setOnAction {
+            val appointment = appointments.find { appt ->
+                appt.id == apptID
+            }
 
-            /*
-            val createAppointmentStatement = connection.createStatement()
+            if (appointment != null) {
+                var success = true
+                val titleStatement = connection.createStatement()
+                val startStatement = connection.createStatement()
+                val endStatement = connection.createStatement()
 
-            //Appointment ID = aptName hashcode + account.id + random number to avoid any conflicts
-            val apptID = aptName.text.hashCode() + (account.id + Random().nextInt(100))
+                println(newName.text)
+                println(startDate.text)
+                println(endDate.text)
 
-            //Attempt to push new appt to DB. If error then that means this is a duplicate
-            try{
-                createAppointmentStatement.executeUpdate(createAppointment(aptName.text, startDate.text, endDate.text, account.id,  apptID))
-                Welcome.stage.close();
-            }catch (ex:Exception){
-                stage.scene = AppointmentNameTaken.scene
-                stage.showAndWait()
-            }*/
+                // If any of the fields fail to update, just keep going. The first try-catch probably isn't needed
+                try {
+                    titleStatement.executeUpdate(changeTitle(newName.text, apptID))
+                } catch (e: SQLException) {
+                    success = false
+                }
+                try {
+                    startStatement.executeUpdate(changeStart(startDate.text, apptID))
+                } catch (e: SQLException) {
+                    success = false
+                }
+                try {
+                    endStatement.executeUpdate(changeEnd(endDate.text, apptID))
+                } catch(e: SQLException) {
+                    success = false
+                }
 
+                if (success) {
+                    AppointmentModify.label.text = "Successfully updated all fields"
+                } else {
+                    AppointmentModify.label.text = "Failed to update at least one field"
+                }
 
-            print(selectApp.items.lastIndex)
+            } else {
+                AppointmentModify.label.text = "Invalid ID used, please select an appointment from the list"
+            }
 
-
+            stage.scene = AppointmentModify.scene
+            stage.showAndWait()
         }
 
         //Back button
@@ -135,27 +171,46 @@ object ChangeCancelAppointment {
 
         val cancel = Button("Cancel Appointment")
         cancel.font = GUIFont.medium
-        cancel.setOnAction { //Cancel Logic
-            Welcome.stage.close()
+        cancel.setOnAction {
+            val appointment = appointments.find { appt ->
+                appt.id == apptID
+            }
+
+            if (appointment != null) {
+                val deleteStatement = connection.createStatement()
+
+                try {
+                    deleteStatement.executeUpdate(removeAppointment(apptID))
+                    AppointmentModify.label.text = "Removed ${appointment.title}"
+                } catch (e: SQLException) {
+                    AppointmentModify.label.text = "Fatal error! Unable to remove appointment!"
+                }
+            } else {
+                AppointmentModify.label.text = "Invalid ID used, please select an appointment from the list"
+            }
+
+            stage.scene = AppointmentModify.scene
+            stage.showAndWait()
         }
 
         val hBox = HBox(10.0)
-        hBox.children.addAll(register, back,cancel )
+        hBox.children.addAll(modify, back,cancel )
         gridPane.add(hBox, 0, 2)
 
         return Scene(gridPane, 250.0, 150.0)
     }
 
     // Window shown when changing Appointment Creation has failed
-    object AppointmentNameTaken {
+    object AppointmentModify {
+        var label = Label()
+
         val scene by lazy { scene() }
 
         private fun scene(): Scene {
 
             val gridPane = grid()
 
-            val message = Label("You can not have duplicate tasks")
-            val leftPane = StackPane(message)
+            val leftPane = StackPane(label)
             leftPane.alignment = Pos.CENTER_LEFT
 
             //Ok Button
@@ -174,7 +229,13 @@ object ChangeCancelAppointment {
             return Scene(gridPane, 250.0, 100.0)
         }
     }
-
-
-
 }
+
+private fun String.extractID(): Int {
+    val idx = this.indexOfLast {
+        !it.isDigit()
+    }
+
+    return this.removeRange(0, idx + 1).toInt()
+}
+
