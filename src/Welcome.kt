@@ -80,6 +80,13 @@ object Welcome {
 		}
 		menuAppointment.items.addAll(createAppt)
 
+		val changeAppt  = MenuItem("Change / Cancel Appointment")
+		changeAppt.setOnAction {
+			changeStage(StageType.CHANGE_APPOINTMENT)
+			stage.showAndWait()
+		}
+		menuAppointment.items.addAll(changeAppt)
+
 		//Create the calendar type menu to the view
 		val setCalendarType = Menu("Set calendar type")
 		val week = RadioMenuItem("Week")
@@ -151,7 +158,7 @@ object Welcome {
 			Welcome.StageType.MAKE_APPOINTMENT ->  MakeAppointment.scene
 			Welcome.StageType.IMPORT_FILE -> FileExplorer.scene
 			Welcome.StageType.CANCEL_APPOINTMENT -> TODO()
-			Welcome.StageType.CHANGE_APPOINTMENT -> TODO()
+			Welcome.StageType.CHANGE_APPOINTMENT -> ChangeCancelAppointment.scene
 			Welcome.StageType.SET_COLOR -> TODO() // NOT NEEDED YET, Probably doesn't need to have its own stage
 		}
 	}

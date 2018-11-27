@@ -3,8 +3,8 @@
 // created with the name "scheduler"
 const val SQL_URL = "jdbc:mysql://localhost:3306/"
 const val SQLDatabase = "scheduler?useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false"
-const val SQLUsername = "java"
-const val SQLPassword = "coffee"
+const val SQLUsername = "root"
+const val SQLPassword = "password"
 
 // Query that gets the number of entries that match account's username
 fun checkForExistingUsername(name: String): String {
