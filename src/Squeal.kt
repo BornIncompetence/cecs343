@@ -2,9 +2,9 @@
 // of this assignment. The user should already have a MYSQL database
 // created with the name "scheduler"
 const val SQL_URL = "jdbc:mysql://localhost:3306/"
-const val SQLDatabase = "scheduler?useLegacyDatetimeCode=false&serverTimezone=UTC"
-const val SQLUsername = "java"
-const val SQLPassword = "coffee"
+const val SQLDatabase = "scheduler?useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false"
+const val SQLUsername = "root"
+const val SQLPassword = "password"
 
 // Query that gets the number of entries that match account's username
 fun checkForExistingUsername(name: String): String {
@@ -56,4 +56,10 @@ fun changePassword(user: String, pass: String): String {
 // Get row that matches the username and password combo that's asked for
 fun getMatchingRow(name: String, pass: String): String {
 	return "SELECT * FROM Users WHERE username LIKE '$name' AND password = '$pass';"
+}
+
+// Create Appointment
+
+fun createAppointment(name: String, startDate: String, endDate: String, userID: Int, appID: Int): String {
+	return "INSERT INTO scheduler.appointments(appointment_id, user_id , title, start_date, end_date) VALUES( '$appID', '$userID', '$name' , '$startDate', '$endDate') "
 }

@@ -68,8 +68,18 @@ object Welcome {
 			stage.showAndWait()
 		}
 
+		//Open modifyAccount window on menu click
+		val createAppt  = MenuItem("Create Appointment")
+		createAppt.setOnAction {
+			changeStage(StageType.MAKE_APPOINTMENT)
+			stage.showAndWait()
+		}
+
 		//Add all menu items to the menu
 		menuAccount.items.addAll(createAccount, changeUsername, changePassword, modifyAccount)
+		menuAppointment.items.addAll(createAppt)
+
+
 
 		//Create the calendar type menu to the view
 		val setCalendarType = Menu("Set calendar type")
@@ -112,7 +122,7 @@ object Welcome {
 			Welcome.StageType.CHANGE_USERNAME -> ChangeName.scene
 			Welcome.StageType.CHANGE_PASSWORD -> PasswordChanger.scene
 			Welcome.StageType.MODIFY_ACCOUNT -> ModifyData.scene
-			Welcome.StageType.MAKE_APPOINTMENT -> TODO() // NOT NEEDED YET
+			Welcome.StageType.MAKE_APPOINTMENT ->  MakeAppointment.scene
 			Welcome.StageType.CANCEL_APPOINTMENT -> TODO() // NOT NEEDED YET
 			Welcome.StageType.CHANGE_APPOINTMENT -> TODO() // NOT NEEDED YET
 			Welcome.StageType.SET_COLOR -> TODO() // NOT NEEDED YET, Probably doesn't need to have its own stage
