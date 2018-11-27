@@ -5,8 +5,6 @@ import javafx.scene.layout.GridPane
 import javafx.scene.text.Font
 import javafx.stage.Stage
 import java.sql.Connection
-import java.sql.DriverManager
-import java.sql.SQLException
 
 object GUIFont {
 	// val bold           = Font.loadFont("file:resources/fonts/SF-Pro-Text-Bold.otf", 20.0)!!

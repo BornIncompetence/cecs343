@@ -19,6 +19,7 @@ object FileExplorer {
 		val gridPane = grid()
 
 		//TODO: Get the number of insertions and modifications to the database
+		//Align message to the left
 		val message = Label("99 entries inserted, 99 entries modified")
 		val leftPane = StackPane(message)
 		leftPane.alignment = Pos.CENTER_LEFT
@@ -28,7 +29,7 @@ object FileExplorer {
 		register.font = GUIFont.medium
 		register.setOnAction { Welcome.stage.close() }
 
-		//Alignment var
+		//Align Ok button to the right
 		val rightPane = StackPane(register)
 		rightPane.alignment = Pos.CENTER_RIGHT
 
@@ -55,22 +56,22 @@ object FileExplorer {
 				endStatement.executeUpdate(changeEnd(it.endDate, it.id))
 			} else {
 				val creationStatement = connection.createStatement()
-				val apptID = it.title.hashCode() + (account.id + Random().nextInt(100))
-				creationStatement.executeUpdate(createAppointment(it.title, it.startDate, it.endDate, account.id, apptID))
+				val aptID = it.title.hashCode() + (account.id + Random().nextInt(100))
+				creationStatement.executeUpdate(createAppointment(it.title, it.startDate, it.endDate, account.id, aptID))
 			}
 		}
 	}
 
 	fun save(file: File) {
 		try {
-			val successGetApptStatement = connection.createStatement()
-			val apptResult = successGetApptStatement.executeQuery(getAppointments(account.username))
+			val successGetAptStatement = connection.createStatement()
+			val aptResult = successGetAptStatement.executeQuery(getAppointments(account.username))
 			file.printWriter().use { out ->
-				while (apptResult.next()) {
-					val title = apptResult.getString("title")
-					val start = apptResult.getString("start_date")
-					val end = apptResult.getString("end_date")
-					val id = apptResult.getInt("appointment_id")
+				while (aptResult.next()) {
+					val title = aptResult.getString("title")
+					val start = aptResult.getString("start_date")
+					val end = aptResult.getString("end_date")
+					val id = aptResult.getInt("appointment_id")
 
 					out.println("$title,$start,$end,$id")
 				}

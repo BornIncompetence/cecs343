@@ -18,7 +18,7 @@ object Welcome {
 		CREATE_ACCOUNT, CHANGE_USERNAME, CHANGE_PASSWORD, MODIFY_ACCOUNT, MAKE_APPOINTMENT, CANCEL_APPOINTMENT, CHANGE_APPOINTMENT, SET_COLOR, IMPORT_FILE
 	}
 
-	//Class to hold type of Calender
+	//Class to hold type of Calendar
 	enum class CalendarType {
 		//Possible choices
 		WEEK, MONTH, DAY
