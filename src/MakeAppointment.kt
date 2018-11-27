@@ -65,13 +65,14 @@ object MakeAppointment {
             val createAppointmentStatement = connection.createStatement()
 
             //Appointment ID = aptName hashcode + account.id + random number to avoid any conflicts
-            val apptID = aptName.text.hashCode() + (account.id + Random().nextInt(100))
+            val aptID = aptName.text.hashCode() + (account.id + Random().nextInt(100))
 
-            //Attempt to push new appt to DB. If error then that means this is a duplicate
-            try{
-                createAppointmentStatement.executeUpdate(createAppointment(aptName.text, startDate.text, endDate.text, account.id,  apptID))
-                Welcome.stage.close();
-            }catch (ex:Exception){
+            //Attempt to push new appointment to database. If error then that means this is a duplicate (very unlikely)
+            try {
+                createAppointmentStatement.executeUpdate(createAppointment(aptName.text, startDate.text, endDate.text, account.id,  aptID))
+                ChangeCancelAppointment.updateComboBox()
+                Welcome.stage.close()
+            } catch (ex:Exception) {
                 stage.scene = AppointmentNameTaken.scene
                 stage.showAndWait()
             }
@@ -87,7 +88,7 @@ object MakeAppointment {
         hBox.children.addAll(register, back)
         gridPane.add(hBox, 0, 2)
 
-        return Scene(gridPane, 250.0, 150.0)
+        return Scene(gridPane, 350.0, 250.0)
     }
 
     // Window shown when changing Appointment Creation has failed

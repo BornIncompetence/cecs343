@@ -12,13 +12,17 @@ import java.sql.SQLException
 
 // Change username of account
 object ChangeCancelAppointment {
+    // ComboBox that holds appointments
+    private val selectApp = ComboBox<String>()
+    private val appointments = mutableListOf<Appointment>()
+
     // Stage that appears when user cannot change name
     private val stage = Stage()
 
     val scene by lazy {	scene()	}
 
-    // The current apptID that we'll modify the database with
-    private var apptID: Int = Int.MAX_VALUE
+    // The current aptID that we'll modify the database with
+    private var aptID: Int = Int.MAX_VALUE
 
     private fun scene(): Scene {
 
@@ -33,30 +37,8 @@ object ChangeCancelAppointment {
         text.font = GUIFont.heavy
         gridPane.add(selectAppLabel, 0, 0)
 
-        //Appointment Name Field
-        val selectApp = ComboBox<String>()
-        val appointments = mutableListOf<Appointment>()
-        try {
-            val successGetApptStatement = connection.createStatement()
-            val apptResult = successGetApptStatement.executeQuery(getAppointments(account.username))
-
-            while (apptResult.next()) {
-                val title = apptResult.getString("title")
-                val start = apptResult.getString("start_date")
-                val end = apptResult.getString("end_date")
-                val id = apptResult.getInt("appointment_id")
-
-                appointments.add(Appointment(title, start, end, id))
-
-                val listString = "NAME: $title DATES: ($start) - ($end) ID: $id"
-
-                selectApp.items.add(listString)
-            }
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
+        //Dropdown menu
+        updateComboBox()
 
         val newNamePrompt = Label("New Appointment Date")
         newNamePrompt.font = GUIFont.regular
@@ -65,7 +47,6 @@ object ChangeCancelAppointment {
         val newName = TextField()
         newName.promptText = "New Name"
         newName.font = GUIFont.regular
-
 
         val startPrompt = Label("New Start Date")
         startPrompt.font = GUIFont.regular
@@ -83,44 +64,42 @@ object ChangeCancelAppointment {
         endDate.promptText = "YYYY-MM-DD HH:MM:SS"
         endDate.font = GUIFont.regular
 
-        selectApp.selectionModel.selectedItemProperty().addListener { _, _, newValue ->
-            val appt = appointments.find {
+        selectApp.selectionModel.selectedItemProperty().addListener {
+            _, _, newValue ->
+            val apt = appointments.find {
                 val foundID = newValue.extractID()
                 it.id == foundID
             }
-            if (appt != null) {
-                apptID = appt.id
-                newName.text = appt.title
-                startDate.text = appt.startDate
-                endDate.text = appt.endDate
+            if (apt != null) {
+                aptID = apt.id
+                newName.text = apt.title
+                startDate.text = apt.startDate
+                endDate.text = apt.endDate
             }
         }
 
         //Add to vBox
         val vBox = VBox(10.0)
-
-        vBox.children.addAll(selectAppLabel)
-        vBox.children.addAll(selectApp)
-
-        vBox.children.addAll(newNamePrompt)
-        vBox.children.addAll(newName)
-
-        vBox.children.addAll(startPrompt)
-        vBox.children.addAll(startDate)
-
-        vBox.children.addAll(endPrompt)
-        vBox.children.addAll(endDate)
+        vBox.children.addAll(
+                selectAppLabel,
+                selectApp,
+                newNamePrompt,
+                newName,
+                startPrompt,
+                startDate,
+                endPrompt,
+                endDate
+        )
         gridPane.add(vBox, 0, 1)
 
         //Update button
         val modify = Button("Change")
         modify.font = GUIFont.medium
 
-        //TODO: Update ComboBox to reflect changes in database, and edit weird behavior with datetime
         //Update button onClick action
         modify.setOnAction {
-            val appointment = appointments.find { appt ->
-                appt.id == apptID
+            val appointment = appointments.find { apt ->
+                apt.id == aptID
             }
 
             if (appointment != null) {
@@ -135,17 +114,17 @@ object ChangeCancelAppointment {
 
                 // If any of the fields fail to update, just keep going. The first try-catch probably isn't needed
                 try {
-                    titleStatement.executeUpdate(changeTitle(newName.text, apptID))
+                    titleStatement.executeUpdate(changeTitle(newName.text, aptID))
                 } catch (e: SQLException) {
                     success = false
                 }
                 try {
-                    startStatement.executeUpdate(changeStart(startDate.text, apptID))
+                    startStatement.executeUpdate(changeStart(startDate.text, aptID))
                 } catch (e: SQLException) {
                     success = false
                 }
                 try {
-                    endStatement.executeUpdate(changeEnd(endDate.text, apptID))
+                    endStatement.executeUpdate(changeEnd(endDate.text, aptID))
                 } catch(e: SQLException) {
                     success = false
                 }
@@ -156,6 +135,7 @@ object ChangeCancelAppointment {
                     AppointmentModify.label.text = "Failed to update at least one field"
                 }
 
+                updateComboBox()
             } else {
                 AppointmentModify.label.text = "Invalid ID used, please select an appointment from the list"
             }
@@ -169,19 +149,21 @@ object ChangeCancelAppointment {
         back.font = GUIFont.medium
         back.setOnAction { Welcome.stage.close() }
 
+        //Cancel appointment, depending on last appointment selected from dropdown
         val cancel = Button("Cancel Appointment")
         cancel.font = GUIFont.medium
         cancel.setOnAction {
-            val appointment = appointments.find { appt ->
-                appt.id == apptID
+            val appointment = appointments.find { apt ->
+                apt.id == aptID
             }
 
             if (appointment != null) {
                 val deleteStatement = connection.createStatement()
 
                 try {
-                    deleteStatement.executeUpdate(removeAppointment(apptID))
+                    deleteStatement.executeUpdate(removeAppointment(aptID))
                     AppointmentModify.label.text = "Removed ${appointment.title}"
+                    updateComboBox()
                 } catch (e: SQLException) {
                     AppointmentModify.label.text = "Fatal error! Unable to remove appointment!"
                 }
@@ -197,11 +179,12 @@ object ChangeCancelAppointment {
         hBox.children.addAll(modify, back,cancel )
         gridPane.add(hBox, 0, 2)
 
-        return Scene(gridPane, 250.0, 150.0)
+        return Scene(gridPane, 350.0, 325.0)
     }
 
-    // Window shown when changing Appointment Creation has failed
-    object AppointmentModify {
+    // Window shown verifying changes to Appointment
+    private object AppointmentModify {
+        // The message shown changes, depending on status of appointment editing
         var label = Label()
 
         val scene by lazy { scene() }
@@ -210,6 +193,7 @@ object ChangeCancelAppointment {
 
             val gridPane = grid()
 
+            //Align message left
             val leftPane = StackPane(label)
             leftPane.alignment = Pos.CENTER_LEFT
 
@@ -218,7 +202,7 @@ object ChangeCancelAppointment {
             register.font = GUIFont.medium
             register.setOnAction { ChangeCancelAppointment.stage.close() }
 
-            //Alignment var
+            //Alignment Ok button to the right
             val rightPane = StackPane(register)
             rightPane.alignment = Pos.CENTER_RIGHT
 
@@ -226,16 +210,43 @@ object ChangeCancelAppointment {
             gridPane.add(leftPane, 0, 0)
             gridPane.add(rightPane, 0, 1)
 
-            return Scene(gridPane, 250.0, 100.0)
+            return Scene(gridPane, 300.0, 100.0)
+        }
+    }
+
+    // Extracts the ID from the very end of the string
+    private fun String.extractID(): Int {
+        val idx = this.indexOfLast {
+            !it.isDigit()
+        }
+
+        return this.removeRange(0, idx + 1).toInt()
+    }
+
+    // Update the list of appointments when an appointment is created, changed, or deleted
+    fun updateComboBox() {
+        try {
+            appointments.clear()
+            selectApp.items.clear()
+
+            val successGetAptStatement = connection.createStatement()
+            val aptResult = successGetAptStatement.executeQuery(getAppointments(account.username))
+
+            while (aptResult.next()) {
+                val title = aptResult.getString("title")
+                val start = aptResult.getString("start_date")
+                val end = aptResult.getString("end_date")
+                val id = aptResult.getInt("appointment_id")
+
+                appointments.add(Appointment(title, start, end, id))
+
+                val listString = "NAME: $title DATES: ($start) - ($end) ID: $id"
+
+                selectApp.items.add(listString)
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 }
-
-private fun String.extractID(): Int {
-    val idx = this.indexOfLast {
-        !it.isDigit()
-    }
-
-    return this.removeRange(0, idx + 1).toInt()
-}
-
