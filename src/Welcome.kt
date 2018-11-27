@@ -3,6 +3,7 @@ import javafx.scene.Scene
 import javafx.scene.control.*
 import javafx.scene.layout.VBox
 import javafx.scene.text.Text
+import javafx.stage.FileChooser
 import javafx.stage.Modality
 import javafx.stage.Stage
 
@@ -14,7 +15,7 @@ object Welcome {
 
 	// Specifies different types of stages to appear on top of main window
 	private enum class StageType {
-		CREATE_ACCOUNT, CHANGE_USERNAME, CHANGE_PASSWORD, MODIFY_ACCOUNT, MAKE_APPOINTMENT, CANCEL_APPOINTMENT, CHANGE_APPOINTMENT, SET_COLOR
+		CREATE_ACCOUNT, CHANGE_USERNAME, CHANGE_PASSWORD, MODIFY_ACCOUNT, MAKE_APPOINTMENT, CANCEL_APPOINTMENT, CHANGE_APPOINTMENT, SET_COLOR, IMPORT_FILE
 	}
 
 	//Class to hold type of Calender
@@ -68,18 +69,16 @@ object Welcome {
 			stage.showAndWait()
 		}
 
+		//Add all menu items to the menu
+		menuAccount.items.addAll(createAccount, changeUsername, changePassword, modifyAccount)
+
 		//Open modifyAccount window on menu click
 		val createAppt  = MenuItem("Create Appointment")
 		createAppt.setOnAction {
 			changeStage(StageType.MAKE_APPOINTMENT)
 			stage.showAndWait()
 		}
-
-		//Add all menu items to the menu
-		menuAccount.items.addAll(createAccount, changeUsername, changePassword, modifyAccount)
 		menuAppointment.items.addAll(createAppt)
-
-
 
 		//Create the calendar type menu to the view
 		val setCalendarType = Menu("Set calendar type")
@@ -95,6 +94,33 @@ object Welcome {
 		//Add the for calendar view type
 		val toggleGroup = ToggleGroup()
 		toggleGroup.toggles.addAll(week, month, day)
+
+		//Add the import file setting
+		val importer = MenuItem("Import schedule")
+		importer.setOnAction {
+			val fileChooser = FileChooser()
+			fileChooser.extensionFilters.add(FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"))
+
+			val file = fileChooser.showOpenDialog(FileExplorer.importStage)
+
+			val appointments = FileExplorer.open(file)
+			FileExplorer.overwrite(appointments)
+
+			changeStage(StageType.IMPORT_FILE)
+			stage.showAndWait()
+		}
+
+		//Add the export file setting
+		val exporter = MenuItem("Export schedule")
+		exporter.setOnAction {
+			val fileChooser = FileChooser()
+			fileChooser.extensionFilters.add(FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"))
+			val file = fileChooser.showSaveDialog(FileExplorer.exportStage)
+			FileExplorer.save(file)
+		}
+
+		//Add file import/export to the settings menu bar
+		menuSettings.items.addAll(importer, exporter)
 
 		//Add all menus to the menu bar
 		menuBar.menus.addAll(menuAccount, menuAppointment, menuSettings, menuHelp)
@@ -123,8 +149,9 @@ object Welcome {
 			Welcome.StageType.CHANGE_PASSWORD -> PasswordChanger.scene
 			Welcome.StageType.MODIFY_ACCOUNT -> ModifyData.scene
 			Welcome.StageType.MAKE_APPOINTMENT ->  MakeAppointment.scene
-			Welcome.StageType.CANCEL_APPOINTMENT -> TODO() // NOT NEEDED YET
-			Welcome.StageType.CHANGE_APPOINTMENT -> TODO() // NOT NEEDED YET
+			Welcome.StageType.IMPORT_FILE -> FileExplorer.scene
+			Welcome.StageType.CANCEL_APPOINTMENT -> TODO()
+			Welcome.StageType.CHANGE_APPOINTMENT -> TODO()
 			Welcome.StageType.SET_COLOR -> TODO() // NOT NEEDED YET, Probably doesn't need to have its own stage
 		}
 	}

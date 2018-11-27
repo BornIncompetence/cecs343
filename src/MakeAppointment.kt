@@ -67,10 +67,10 @@ object MakeAppointment {
             //Appointment ID = aptName hashcode + account.id + random number to avoid any conflicts
             val apptID = aptName.text.hashCode() + (account.id + Random().nextInt(100))
 
-            //Atempt to push new appt to DB. If error then that means this is a duplicate
+            //Attempt to push new appt to DB. If error then that means this is a duplicate
             try{
-                val result = createAppointmentStatement.executeUpdate(createAppointment(aptName.text, startDate.text, endDate.text, account.id,  apptID))
-                //Welcome.stage.close();
+                createAppointmentStatement.executeUpdate(createAppointment(aptName.text, startDate.text, endDate.text, account.id,  apptID))
+                Welcome.stage.close();
             }catch (ex:Exception){
                 stage.scene = AppointmentNameTaken.scene
                 stage.showAndWait()
@@ -98,7 +98,6 @@ object MakeAppointment {
 
             val gridPane = grid()
 
-            // The SUCCESS option will never be initialized, but Kotlin enforces exhaustion of all enums
             val message = Label("You can not have duplicate tasks")
             val leftPane = StackPane(message)
             leftPane.alignment = Pos.CENTER_LEFT

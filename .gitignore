@@ -21,7 +21,7 @@
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
-.idea/*
+.idea/workspace.xml
 out/**
 
 # User-specific stuff

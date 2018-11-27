@@ -3,8 +3,8 @@
 // created with the name "scheduler"
 const val SQL_URL = "jdbc:mysql://localhost:3306/"
 const val SQLDatabase = "scheduler?useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false"
-const val SQLUsername = "root"
-const val SQLPassword = "password"
+const val SQLUsername = "java"
+const val SQLPassword = "coffee"
 
 // Query that gets the number of entries that match account's username
 fun checkForExistingUsername(name: String): String {
@@ -59,7 +59,30 @@ fun getMatchingRow(name: String, pass: String): String {
 }
 
 // Create Appointment
-
 fun createAppointment(name: String, startDate: String, endDate: String, userID: Int, appID: Int): String {
 	return "INSERT INTO scheduler.appointments(appointment_id, user_id , title, start_date, end_date) VALUES( '$appID', '$userID', '$name' , '$startDate', '$endDate') "
+}
+
+// Get all Appointments belonging to username
+fun getAppointments(username: String): String {
+	return "SELECT a.title, a.start_date, a.end_date, a.appointment_id " +
+			"FROM Appointments a " +
+			"INNER JOIN Users u ON a.user_id = u.user_id " +
+			"WHERE username LIKE '$username';"
+}
+
+fun checkForExistingAppt(appID: Int): String {
+	return "SELECT COUNT(*) FROM Appointments WHERE appointment_id = $appID;"
+}
+
+fun changeTitle(title: String, appID: Int): String {
+	return "UPDATE Appointments SET title = '$title' WHERE appointment_id = $appID;"
+}
+
+fun changeStart(startDate: String, appID: Int): String {
+	return "UPDATE Appointments SET start_date = '$startDate' WHERE appointment_id = $appID;"
+}
+
+fun changeEnd(endDate: String, appID: Int): String {
+	return "UPDATE Appointments SET end_date = '$endDate' WHERE appointment_id = $appID;"
 }

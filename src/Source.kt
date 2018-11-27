@@ -26,6 +26,9 @@ object GUIFont {
 // Account data class used for storing current user credentials during the session
 data class Account(var email: String, var username: String, var password: String, var phone: String?, var id: Int)
 
+// Appointment data class used for storing one or more appointments
+data class Appointment(var title: String, var startDate: String, var endDate: String, var id: Int)
+
 // This is the main window used between Logger and Welcome objects
 // By reassigning window.scene, we can switch windows
 // New windows are created by creating a new stage within other objects
