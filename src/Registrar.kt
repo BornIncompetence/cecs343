@@ -9,7 +9,7 @@ import kotlin.system.exitProcess
 
 // Create User Account
 object Registrar {
-	private var pendingUser = Account("", "", "", null)
+	private var pendingUser = Account("", "", "", null, 0)
 
 	val stage = Stage()
 

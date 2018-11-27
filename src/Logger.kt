@@ -102,7 +102,9 @@ object Logger {
 			val username = result.getString("username")
 			val password = result.getString("password")
 			val phone = result.getString("phone")
-			account = Account(email, username, password, phone)
+			//Get user ID for purpose of inserting into Appointment table
+			val id = result.getString("user_id").toInt();
+			account = Account(email, username, password, phone, id)
 			status = LoginStatus.SUCCESS
 			true
 		} else {
