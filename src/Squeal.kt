@@ -95,3 +95,19 @@ fun changeEnd(endDate: String, appID: Int): String {
 fun removeAppointment(appID: Int): String {
 	return "DELETE FROM Appointments WHERE appointment_id = $appID;"
 }
+
+//Sends email to address
+//Returns true for email sent
+//Returns false for email not sent
+fun sendEmail(emailAddress: String, appointmentName: String, startDate: String, username: String): Boolean{
+
+	val emailSent = false;//Set to true if email is sent
+	val emailMSG = " Hello, $username \nYou have a/an $appointmentName @ $startDate "//Message String
+
+
+	//TODO actually send message emailMSG and update emailSent
+
+
+
+	return emailSent;
+}
