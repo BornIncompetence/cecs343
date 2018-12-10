@@ -1,6 +1,7 @@
 import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.control.Button
+import javafx.scene.control.ComboBox
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
 import javafx.scene.layout.HBox
@@ -39,12 +40,19 @@ object MakeAppointment {
         startDate.font = GUIFont.regular
 
         val endPrompt = Label("End Date")
-        text.font = GUIFont.heavy
+        text.font = GUIFont.regular
 
         //End Date
         val endDate = TextField()
         endDate.promptText = "YYYY-MM-DD HH:MM:SS"
         endDate.font = GUIFont.regular
+
+        val remindPrompt = Label("Remind me in")
+        remindPrompt.font = GUIFont.regular
+
+        val remind = ComboBox<String>()
+        remind.promptText = "Remind me in X minutes"
+        remind.items.setAll("Never", "15 minutes", "30 minutes", "1 hour", "2 hours", "4 hours", "1 day")
 
         //Add to vBox
         val vBox = VBox(10.0)
@@ -53,6 +61,8 @@ object MakeAppointment {
         vBox.children.addAll(startDate)
         vBox.children.addAll(endPrompt)
         vBox.children.addAll(endDate)
+        vBox.children.addAll(remindPrompt)
+        vBox.children.addAll(remind)
         gridPane.add(vBox, 0, 1)
 
         //Update button
@@ -69,7 +79,19 @@ object MakeAppointment {
 
             //Attempt to push new appointment to database. If error then that means this is a duplicate (very unlikely)
             try {
-                createAppointmentStatement.executeUpdate(createAppointment(aptName.text, startDate.text, endDate.text, account.id,  aptID))
+                val reminder = when (remind.value) {
+                    "Never" -> null
+                    "15 minutes" -> 15
+                    "30 minutes" -> 30
+                    "1 hour" -> 60
+                    "2 hours" -> 120
+                    "4 hours" -> 240
+                    "1 day" -> 3600
+                    else -> {
+                        null
+                    }
+                }
+                createAppointmentStatement.executeUpdate(createAppointment(aptName.text, startDate.text, endDate.text, account.id, aptID, reminder))
                 ChangeCancelAppointment.updateComboBox()
                 Welcome.stage.close()
             } catch (ex:Exception) {

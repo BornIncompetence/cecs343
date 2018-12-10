@@ -18,9 +18,8 @@ object FileExplorer {
 
 		val gridPane = grid()
 
-		//TODO: Get the number of insertions and modifications to the database
 		//Align message to the left
-		val message = Label("99 entries inserted, 99 entries modified")
+		val message = Label("New appointments created.")
 		val leftPane = StackPane(message)
 		leftPane.alignment = Pos.CENTER_LEFT
 
@@ -40,6 +39,7 @@ object FileExplorer {
 		return Scene(gridPane, 250.0, 100.0)
 	}
 
+	// Newly written appointments are given no reminder
 	fun overwrite(appointments: MutableList<Appointment>) {
 		appointments.forEach {
 			val idStatement = connection.createStatement()
@@ -57,11 +57,12 @@ object FileExplorer {
 			} else {
 				val creationStatement = connection.createStatement()
 				val aptID = it.title.hashCode() + (account.id + Random().nextInt(100))
-				creationStatement.executeUpdate(createAppointment(it.title, it.startDate, it.endDate, account.id, aptID))
+				creationStatement.executeUpdate(createAppointment(it.title, it.startDate, it.endDate, account.id, aptID, null))
 			}
 		}
 	}
 
+	// Appointment reminders aren't saved
 	fun save(file: File) {
 		try {
 			val successGetAptStatement = connection.createStatement()
@@ -86,7 +87,7 @@ object FileExplorer {
 
 		file.forEachLine { line ->
 			val tokens = line.split(",")
-			appointments.add(Appointment(tokens[0], tokens[1], tokens[2], tokens[3].toInt()))
+			appointments.add(Appointment(tokens[0], tokens[1], tokens[2], tokens[3].toInt(), null))
 		}
 
 		return appointments

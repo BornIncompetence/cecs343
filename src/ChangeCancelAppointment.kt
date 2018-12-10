@@ -56,13 +56,20 @@ object ChangeCancelAppointment {
         startDate.promptText = "YYYY-MM-DD HH:MM:SS"
         startDate.font = GUIFont.regular
 
-        val endPrompt = Label("New  End Date")
-        text.font = GUIFont.heavy
+        val endPrompt = Label("New End Date")
+        text.font = GUIFont.regular
 
         //End Date
         val endDate = TextField()
         endDate.promptText = "YYYY-MM-DD HH:MM:SS"
         endDate.font = GUIFont.regular
+
+        val remindPrompt = Label("Edit reminder")
+        remindPrompt.font = GUIFont.regular
+
+        val remind = ComboBox<String>()
+        remind.promptText = "Remind me in X minutes"
+        remind.items.setAll("Never", "15 minutes", "30 minutes", "1 hour", "2 hours", "4 hours", "1 day")
 
         selectApp.selectionModel.selectedItemProperty().addListener {
             _, _, newValue ->
@@ -75,6 +82,18 @@ object ChangeCancelAppointment {
                 newName.text = apt.title
                 startDate.text = apt.startDate
                 endDate.text = apt.endDate
+                remind.value = when (apt.reminder) {
+                    0 -> "Never"
+                    15 -> "15 minutes"
+                    30 -> "30 minutes"
+                    60 -> "1 hour"
+                    120 -> "2 hours"
+                    240 -> "4 hours"
+                    3600 -> "1 day"
+                    else -> {
+                        null
+                    }
+                }
             }
         }
 
@@ -88,7 +107,9 @@ object ChangeCancelAppointment {
                 startPrompt,
                 startDate,
                 endPrompt,
-                endDate
+                endDate,
+                remindPrompt,
+                remind
         )
         gridPane.add(vBox, 0, 1)
 
@@ -107,6 +128,7 @@ object ChangeCancelAppointment {
                 val titleStatement = connection.createStatement()
                 val startStatement = connection.createStatement()
                 val endStatement = connection.createStatement()
+                val remindStatement = connection.createStatement()
 
                 println(newName.text)
                 println(startDate.text)
@@ -125,6 +147,23 @@ object ChangeCancelAppointment {
                 }
                 try {
                     endStatement.executeUpdate(changeEnd(endDate.text, aptID))
+                } catch(e: SQLException) {
+                    success = false
+                }
+                try {
+                    val remindInt = when (remind.value) {
+                        "Never" -> null
+                        "15 minutes" -> 15
+                        "30 minutes" -> 30
+                        "1 hour" -> 60
+                        "2 hours" -> 120
+                        "4 hours" -> 240
+                        "1 day" -> 3600
+                        else -> {
+                            null
+                        }
+                    }
+                    remindStatement.executeUpdate(changeReminder(remindInt, aptID))
                 } catch(e: SQLException) {
                     success = false
                 }
@@ -237,8 +276,9 @@ object ChangeCancelAppointment {
                 val start = aptResult.getString("start_date")
                 val end = aptResult.getString("end_date")
                 val id = aptResult.getInt("appointment_id")
+                val reminder = aptResult.getInt("reminder")
 
-                appointments.add(Appointment(title, start, end, id))
+                appointments.add(Appointment(title, start, end, id, reminder))
 
                 val listString = "NAME: $title DATES: ($start) - ($end) ID: $id"
 

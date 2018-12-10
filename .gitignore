@@ -1,9 +1,5 @@
 # Compiled class file
-*.class
-
 # Kotlin
-*.kotlin_module
-
 # Log file
 *.log
 
@@ -21,7 +17,7 @@
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
-.idea/workspace.xml
+.idea/**/encodings.xml
 out/**
 
 # User-specific stuff

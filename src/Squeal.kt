@@ -59,13 +59,14 @@ fun getMatchingRow(name: String, pass: String): String {
 }
 
 // Create Appointment
-fun createAppointment(name: String, startDate: String, endDate: String, userID: Int, appID: Int): String {
-	return "INSERT INTO scheduler.appointments(appointment_id, user_id , title, start_date, end_date) VALUES( '$appID', '$userID', '$name' , '$startDate', '$endDate') "
+fun createAppointment(name: String, startDate: String, endDate: String, userID: Int, appID: Int, reminder: Int?): String {
+	return "INSERT INTO scheduler.appointments(appointment_id, user_id , title, start_date, end_date, reminder) " +
+			"VALUES( '$appID', '$userID', '$name' , '$startDate', '$endDate', ${reminder ?: "NULL"});"
 }
 
 // Get all Appointments belonging to username
 fun getAppointments(username: String): String {
-	return "SELECT a.title, a.start_date, a.end_date, a.appointment_id " +
+	return "SELECT a.title, a.start_date, a.end_date, a.appointment_id, a.reminder " +
 			"FROM Appointments a " +
 			"INNER JOIN Users u ON a.user_id = u.user_id " +
 			"WHERE username LIKE '$username';"
@@ -101,13 +102,18 @@ fun removeAppointment(appID: Int): String {
 //Returns false for email not sent
 fun sendEmail(emailAddress: String, appointmentName: String, startDate: String, username: String): Boolean{
 
-	val emailSent = false;//Set to true if email is sent
+	val emailSent = emailAddress == ""//Set to true if email is sent
 	val emailMSG = " Hello, $username \nYou have a/an $appointmentName @ $startDate "//Message String
-
+	println(emailMSG)
 
 	//TODO actually send message emailMSG and update emailSent
 
 
 
-	return emailSent;
+	return emailSent
+}
+
+// Change the reminder for this appointment
+fun changeReminder(reminder: Int?, appID: Int) : String {
+	return "UPDATE Appointments SET reminder = ${reminder ?: "NULL"} WHERE appointment_id = $appID;"
 }
