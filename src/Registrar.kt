@@ -170,6 +170,7 @@ object Registrar {
 				status = RegistrationStatus.SUCCESS
 				try {
 					successStatement.executeUpdate(createAccount(maxID + 1, pendingUser))
+					pendingUser.id = maxID + 1
 					account = pendingUser
 					Welcome.welcomeBanner.text = "Logged in as " + pendingUser.username
 				} catch (e: Exception) {

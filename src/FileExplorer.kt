@@ -46,7 +46,9 @@ object FileExplorer {
 			val idResult = idStatement.executeQuery(checkForExistingAppt(it.id))
 
 			// Modify if the ID already exists, else create a new one
-			if (idResult.next()) {
+			idResult.next()
+			val count = idResult.getInt(1)
+			if (count > 0) {
 				val titleStatement = connection.createStatement()
 				val startStatement = connection.createStatement()
 				val endStatement = connection.createStatement()
@@ -60,6 +62,7 @@ object FileExplorer {
 				creationStatement.executeUpdate(createAppointment(it.title, it.startDate, it.endDate, account.id, aptID, null))
 			}
 		}
+		ChangeCancelAppointment.updateComboBox()
 	}
 
 	// Appointment reminders aren't saved

@@ -110,7 +110,7 @@ object MakeAppointment {
         hBox.children.addAll(register, back)
         gridPane.add(hBox, 0, 2)
 
-        return Scene(gridPane, 350.0, 250.0)
+        return Scene(gridPane, 350.0, 300.0)
     }
 
     // Window shown when changing Appointment Creation has failed

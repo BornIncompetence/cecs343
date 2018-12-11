@@ -218,7 +218,7 @@ object ChangeCancelAppointment {
         hBox.children.addAll(modify, back,cancel )
         gridPane.add(hBox, 0, 2)
 
-        return Scene(gridPane, 350.0, 325.0)
+        return Scene(gridPane, 350.0, 375.0)
     }
 
     // Window shown verifying changes to Appointment

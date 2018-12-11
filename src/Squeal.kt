@@ -1,5 +1,9 @@
 import java.time.LocalDateTime
 
+
+import org.apache.commons.mail.DefaultAuthenticator
+import org.apache.commons.mail.HtmlEmail
+
 // We will be using the user's locally installed database for the purposes
 // of this assignment. The user should already have a MYSQL database
 // created with the name "scheduler"
@@ -103,16 +107,29 @@ fun removeAppointment(appID: Int): String {
 //Returns true for email sent
 //Returns false for email not sent
 fun sendEmail(emailAddress: String, appointmentName: String, startDate: LocalDateTime, username: String): Boolean{
-
-	val emailSent = emailAddress == ""//Set to true if email is sent
-	val emailMSG = " Hello, $username \nYou have a/an $appointmentName @ ${startDate.toLocalDate()} ${startDate.toLocalTime()} "//Message String
+	val emailMSG = " Hello, $username ($emailAddress). \nYou have an appointment: '$appointmentName' @ ${startDate.toLocalDate()} ${startDate.toLocalTime()} "//Message String
 	println(emailMSG)
+	return true
 
-	//TODO actually send message emailMSG and update emailSent
+	val senderEmail = "diego@sn.gy"
+	val password = "#passsword"
+	return try {
+		val email = HtmlEmail()
+		email.hostName = "smtp.googlemail.com"
+		email.setSmtpPort(465)
+		email.setAuthenticator(DefaultAuthenticator(senderEmail, password))
+		email.isSSLOnConnect = true
+		email.setFrom(senderEmail)
+		email.addTo(emailAddress)
+		email.subject = "You have an Appointment coming up"
+		email.setHtmlMsg("<html><h1>$emailMSG</h1></html>")
+		email.send()
 
-
-
-	return emailSent
+		true
+	} catch (ex: Exception) {
+		ex.printStackTrace()
+		false
+	}
 }
 
 // Change the reminder for this appointment

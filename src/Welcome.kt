@@ -11,10 +11,12 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.concurrent.schedule
+import kotlin.math.absoluteValue
 
 // Main menu
 object Welcome {
 	var welcomeBanner = Text()
+	var appointmentList = mutableListOf<Int>()
 	// Stage for many of the menu bar options available
 	val stage = Stage()
 
@@ -157,16 +159,20 @@ object Welcome {
 		timer.schedule(1000, 60000) {
 			val emailStatement = connection.createStatement()
 			val emailResult = emailStatement.executeQuery(getAppointments(account.username))
-			var remindersSet = false
 			while (emailResult.next()) {
 				val name = emailResult.getString("title")
 				val start = emailResult.getString("start_date")
 				val reminder = emailResult.getInt("reminder")
+				val aptID = emailResult.getInt("appointment_id")
+
 				val startDate = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 				val now = LocalDateTime.now()
-				val minutes = Duration.between(startDate, now).toMinutes()
-				if (minutes < reminder && startDate > now) {
-					remindersSet = sendEmail(account.email, name, startDate, account.username)
+				val minutes = Duration.between(startDate, now).toMinutes().absoluteValue
+
+				if (minutes < reminder && startDate > now && !appointmentList.contains(aptID)) {
+					if (sendEmail(account.email, name, startDate, account.username)) {
+						appointmentList.add(aptID)
+					}
 				}
 			}
 		}
