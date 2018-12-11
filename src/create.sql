@@ -21,6 +21,7 @@ CREATE TABLE Appointments (
   title          VARCHAR(40) NULL,
   start_date     DATETIME    NOT NULL,
   end_date       DATETIME    NOT NULL,
+  reminder       INT         NULL,
   CONSTRAINT appointment_pk PRIMARY KEY (appointment_id)
 );
 

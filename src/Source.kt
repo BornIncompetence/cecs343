@@ -5,6 +5,7 @@ import javafx.scene.layout.GridPane
 import javafx.scene.text.Font
 import javafx.stage.Stage
 import java.sql.Connection
+import java.util.*
 
 object GUIFont {
 	// val bold           = Font.loadFont("file:resources/fonts/SF-Pro-Text-Bold.otf", 20.0)!!
@@ -40,6 +41,8 @@ lateinit var connection: Connection
 // This is the account that is logged into the account
 lateinit var account: Account
 
+val timer = Timer()
+
 // This is the gridPane that every window uses
 fun grid(): GridPane {
 	val gridPane = GridPane()
@@ -62,6 +65,11 @@ class GUI : Application() {
 		window.scene = Logger.scene
 		window.title = "Vision"
 		window.show()
+	}
+
+	override fun stop() {
+		timer.cancel()
+		timer.purge()
 	}
 }
 

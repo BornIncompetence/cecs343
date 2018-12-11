@@ -1,3 +1,5 @@
+import java.time.LocalDateTime
+
 // We will be using the user's locally installed database for the purposes
 // of this assignment. The user should already have a MYSQL database
 // created with the name "scheduler"
@@ -100,10 +102,10 @@ fun removeAppointment(appID: Int): String {
 //Sends email to address
 //Returns true for email sent
 //Returns false for email not sent
-fun sendEmail(emailAddress: String, appointmentName: String, startDate: String, username: String): Boolean{
+fun sendEmail(emailAddress: String, appointmentName: String, startDate: LocalDateTime, username: String): Boolean{
 
 	val emailSent = emailAddress == ""//Set to true if email is sent
-	val emailMSG = " Hello, $username \nYou have a/an $appointmentName @ $startDate "//Message String
+	val emailMSG = " Hello, $username \nYou have a/an $appointmentName @ ${startDate.toLocalDate()} ${startDate.toLocalTime()} "//Message String
 	println(emailMSG)
 
 	//TODO actually send message emailMSG and update emailSent

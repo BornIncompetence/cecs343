@@ -6,6 +6,11 @@ import javafx.scene.text.Text
 import javafx.stage.FileChooser
 import javafx.stage.Modality
 import javafx.stage.Stage
+import java.time.Duration
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.concurrent.schedule
 
 // Main menu
 object Welcome {
@@ -15,7 +20,7 @@ object Welcome {
 
 	// Specifies different types of stages to appear on top of main window
 	private enum class StageType {
-		CREATE_ACCOUNT, CHANGE_USERNAME, CHANGE_PASSWORD, MODIFY_ACCOUNT, MAKE_APPOINTMENT, CANCEL_APPOINTMENT, CHANGE_APPOINTMENT, SET_COLOR, IMPORT_FILE
+		CREATE_ACCOUNT, CHANGE_USERNAME, CHANGE_PASSWORD, MODIFY_ACCOUNT, MAKE_APPOINTMENT, CHANGE_APPOINTMENT, SET_COLOR, IMPORT_FILE
 	}
 
 	//Class to hold type of Calendar
@@ -73,19 +78,19 @@ object Welcome {
 		menuAccount.items.addAll(createAccount, changeUsername, changePassword, modifyAccount)
 
 		//Open modifyAccount window on menu click
-		val createAppt  = MenuItem("Create Appointment")
-		createAppt.setOnAction {
+		val createApt  = MenuItem("Create Appointment")
+		createApt.setOnAction {
 			changeStage(StageType.MAKE_APPOINTMENT)
 			stage.showAndWait()
 		}
-		menuAppointment.items.addAll(createAppt)
+		menuAppointment.items.addAll(createApt)
 
-		val changeAppt  = MenuItem("Change / Cancel Appointment")
-		changeAppt.setOnAction {
+		val changeApt  = MenuItem("Change / Cancel Appointment")
+		changeApt.setOnAction {
 			changeStage(StageType.CHANGE_APPOINTMENT)
 			stage.showAndWait()
 		}
-		menuAppointment.items.addAll(changeAppt)
+		menuAppointment.items.addAll(changeApt)
 
 		//Create the calendar type menu to the view
 		val setCalendarType = Menu("Set calendar type")
@@ -148,6 +153,25 @@ object Welcome {
 		return Scene(vBox, 300.0, 200.0)
 	}
 
+	init {
+		timer.schedule(1000, 60000) {
+			val emailStatement = connection.createStatement()
+			val emailResult = emailStatement.executeQuery(getAppointments(account.username))
+			var remindersSet = false
+			while (emailResult.next()) {
+				val name = emailResult.getString("title")
+				val start = emailResult.getString("start_date")
+				val reminder = emailResult.getInt("reminder")
+				val startDate = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+				val now = LocalDateTime.now()
+				val minutes = Duration.between(startDate, now).toMinutes()
+				if (minutes < reminder && startDate > now) {
+					remindersSet = sendEmail(account.email, name, startDate, account.username)
+				}
+			}
+		}
+	}
+
 	//This function takes a stage type and executes its corresponding window
 	private fun changeStage(stageType: StageType) {
 		stage.scene = when (stageType) {
@@ -157,7 +181,6 @@ object Welcome {
 			Welcome.StageType.MODIFY_ACCOUNT -> ModifyData.scene
 			Welcome.StageType.MAKE_APPOINTMENT ->  MakeAppointment.scene
 			Welcome.StageType.IMPORT_FILE -> FileExplorer.scene
-			Welcome.StageType.CANCEL_APPOINTMENT -> TODO()
 			Welcome.StageType.CHANGE_APPOINTMENT -> ChangeCancelAppointment.scene
 			Welcome.StageType.SET_COLOR -> TODO() // NOT NEEDED YET, Probably doesn't need to have its own stage
 		}
