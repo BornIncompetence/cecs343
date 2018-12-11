@@ -1,10 +1,22 @@
+
+import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException
+import jdk.nashorn.internal.objects.NativeError.setFileName
+import javax.activation.DataHandler
+import javax.activation.FileDataSource
+
+
+import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.MimeBodyPart
+import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.MimeMultipart
+import org.apache.commons.mail.DefaultAuthenticator
+import org.apache.commons.mail.HtmlEmail
+import java.net.URL
 // We will be using the user's locally installed database for the purposes
 // of this assignment. The user should already have a MYSQL database
 // created with the name "scheduler"
 const val SQL_URL = "jdbc:mysql://localhost:3306/"
 const val SQLDatabase = "scheduler?useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false"
-const val SQLUsername = "java"
-const val SQLPassword = "coffee"
+const val SQLUsername = "root"
+const val SQLPassword = "password"
 
 // Query that gets the number of entries that match account's username
 fun checkForExistingUsername(name: String): String {
@@ -102,15 +114,31 @@ fun removeAppointment(appID: Int): String {
 //Returns false for email not sent
 fun sendEmail(emailAddress: String, appointmentName: String, startDate: String, username: String): Boolean{
 
-	val emailSent = emailAddress == ""//Set to true if email is sent
+	
 	val emailMSG = " Hello, $username \nYou have a/an $appointmentName @ $startDate "//Message String
 	println(emailMSG)
 
-	//TODO actually send message emailMSG and update emailSent
+	val senderEmail = "diego@sn.gy"
+	val password = "#passsword"
+	val toMail = emailAddress
+	try{
+		val email = HtmlEmail()
+		email.hostName = "smtp.googlemail.com"
+		email.setSmtpPort(465)
+		email.setAuthenticator(DefaultAuthenticator(senderEmail, password))
+		email.isSSLOnConnect = true
+		email.setFrom(senderEmail)
+		email.addTo(toMail)
+		email.subject = "You have a new Apointment"
+		email.setHtmlMsg("<html><h1>"+ emailMSG+ "</h1></html>")
+		email.send()
+
+		return true;
+	}catch(ex:Exception){
+		return false;
+	}
 
 
-
-	return emailSent
 }
 
 // Change the reminder for this appointment
